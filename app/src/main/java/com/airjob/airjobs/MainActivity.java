@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,9 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
     private String login, motdepasselog;
 
+
+
     private FirebaseFirestore db;
     private DocumentReference noteRef;
     private CollectionReference noteCollectionRef;
+
+
 
     private TextView creeuncompte;
     private TextView motdepassoublie;
@@ -44,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
     private String logs;
 
     private String ok;
+
+
+
+
 
     private void init(){
 
@@ -60,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         alert1=findViewById(R.id.alert1);
         alert2=findViewById(R.id.alert2);
     }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +167,11 @@ public class MainActivity extends AppCompatActivity {
 //
 //        });
 
+
+
+
+
+
     public void btnLoginClick(View view) {
         login = login1.getText().toString().trim();
         motdepasselog = motdepasselog1.getText().toString().trim();
@@ -185,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Remplissage par la suite
                                     /** 7 Ajout du lien vers mainActivity si l'utilisateur est bien connecté **/
-                                    startActivity(new Intent(MainActivity.this, Recuperationmotdepasse.class));
+                                    startActivity(new Intent(MainActivity.this, Deconexionpage.class));
                                     // Utilisation de finish() pour fermer l'activité présente
                                     finish();
                                 } else {
@@ -205,15 +222,62 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void openActivity2(){
         Intent intent = new Intent(this, Creeuncompte.class);
         startActivity(intent);
     }
 
+
+
+
+
     public void openActivity3(){
         Intent intent = new Intent(this, Recuperationmotdepasse.class);
         startActivity(intent);
     }
+
+
+
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+            startActivity(new Intent(MainActivity.this, Deconexionpage.class));
+            finish();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     /** 12 Ajout des boutons next et send à la place du retour chariot du keyboard **/
     private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
@@ -227,5 +291,9 @@ public class MainActivity extends AppCompatActivity {
             return false; // On laisse le return à false pour empêcher le comportement normal du clavier
         }
     };
+
+
+
+
 
 }
