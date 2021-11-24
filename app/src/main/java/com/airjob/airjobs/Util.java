@@ -3,6 +3,7 @@ package com.airjob.airjobs;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
+
 public class Util {
 
     /** Méthode pour le check d'internet **/

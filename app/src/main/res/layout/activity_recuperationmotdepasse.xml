@@ -49,6 +49,11 @@
 
 
         android:background="@drawable/textlines"
+
+
+
+
+
         />
 
     <Button

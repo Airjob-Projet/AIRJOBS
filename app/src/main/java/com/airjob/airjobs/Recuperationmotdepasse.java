@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+
 public class Recuperationmotdepasse extends AppCompatActivity {
 
     private static final String TAG = "Recuperationmotdepasse";
@@ -23,26 +24,38 @@ public class Recuperationmotdepasse extends AppCompatActivity {
 
     private Button buttonrecup;
 
+
     private FirebaseAuth firebaseAuth;
+
+
+
 
     private void init() {
         loginrecup = findViewById(R.id.loginrecup);
         buttonrecup = findViewById(R.id.buttonrecup);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperationmotdepasse);
 
+
         init();
+
+
+
 
     }
 
+
     public void resetpassword(View view) {
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         String emailAddress = loginrecup.getText().toString();
+
 
         firebaseAuth.setLanguageCode("fr");
         firebaseAuth.sendPasswordResetEmail(emailAddress)
@@ -59,6 +72,11 @@ public class Recuperationmotdepasse extends AppCompatActivity {
                     }
                 });
 
+
+
     }
+
+
+
 
 }
