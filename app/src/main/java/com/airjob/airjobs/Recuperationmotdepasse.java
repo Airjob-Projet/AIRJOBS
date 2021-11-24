@@ -1,6 +1,5 @@
 package com.airjob.airjobs;
 
-<<<<<<< HEAD
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
@@ -31,19 +30,10 @@ public class Recuperationmotdepasse extends AppCompatActivity {
         buttonrecup = findViewById(R.id.buttonrecup);
     }
 
-=======
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
-public class Recuperationmotdepasse extends AppCompatActivity {
-
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperationmotdepasse);
-<<<<<<< HEAD
 
         init();
 
@@ -72,7 +62,3 @@ public class Recuperationmotdepasse extends AppCompatActivity {
     }
 
 }
-=======
-    }
-}
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf

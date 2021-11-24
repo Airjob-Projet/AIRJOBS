@@ -36,11 +36,7 @@
         android:textSize="20sp" />
 
     <EditText
-<<<<<<< HEAD
         android:id="@+id/loginrecup"
-=======
-        android:id="@+id/login"
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         android:layout_width="310dp"
         android:layout_height="30dp"
 
@@ -62,11 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
-<<<<<<< HEAD
         android:text="Format email  incorrect"
-=======
-        android:text="Email  incorrect"
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         android:textColor="#FF0000"
         android:visibility="invisible" />
 
@@ -101,11 +93,7 @@
         android:visibility="invisible" />
 
     <Button
-<<<<<<< HEAD
         android:id="@+id/buttonrecup"
-=======
-        android:id="@+id/buttonlog"
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"

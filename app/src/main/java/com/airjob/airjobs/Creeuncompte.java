@@ -4,13 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-<<<<<<< HEAD
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-=======
-import android.os.Bundle;
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,10 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-<<<<<<< HEAD
-=======
-import com.google.android.gms.tasks.OnSuccessListener;
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,10 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-<<<<<<< HEAD
-=======
-import com.google.firebase.firestore.util.Util;
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
 
 import org.jetbrains.annotations.NotNull;
 
@@ -51,19 +39,11 @@ public class Creeuncompte extends AppCompatActivity {
 
     private void init() {
 
-<<<<<<< HEAD
         Email = findViewById(R.id.loginrecup);
-=======
-        Email = findViewById(R.id.login);
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         Identifiant = findViewById(R.id.motdepasselog);
         motdepasse = findViewById(R.id.motdepasse);
         motdepasse2 = findViewById(R.id.motdepasse2);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         db = FirebaseFirestore.getInstance();
 
         noteCollectionRef = db.collection("notes");
@@ -90,25 +70,15 @@ public class Creeuncompte extends AppCompatActivity {
         String motdepasse1 = motdepasse.getText().toString().trim();
         String motdepassebis = motdepasse2.getText().toString().trim();
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         if (motdepasse1.length() < 6) {
             textView3.setVisibility(View.VISIBLE);}
         else{textView3.setVisibility(View.INVISIBLE);}
         if (!Patterns.EMAIL_ADDRESS.matcher(Email1).matches()) {
             textView7.setVisibility(View.VISIBLE);
 
-<<<<<<< HEAD
         }  if (!motdepasse1.equals(motdepassebis)) {
             textView4.setVisibility(View.VISIBLE);
         } else{textView4.setVisibility(View.INVISIBLE);}
-=======
-        } else if (!motdepasse1.equals(motdepassebis)) {
-            textView4.setVisibility(View.VISIBLE);
-        }
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
 
         if (Identifiant1.equals("")) {
             Identifiant.setError("Enter name");
@@ -178,7 +148,6 @@ public class Creeuncompte extends AppCompatActivity {
                 // startActivity(new Intent(SignupActivity.this, NoInternetActivity.class));
             }
 
-<<<<<<< HEAD
             /** Modelcreeruncompte contenuNote = new Modelcreeruncompte(Identifiant1, Email1, motdepasse1);
              noteCollectionRef.add(contenuNote)
              .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -213,20 +182,6 @@ public class Creeuncompte extends AppCompatActivity {
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
 
-=======
-            Modelcreeruncompte contenuNote = new Modelcreeruncompte(Identifiant1, Email1, motdepasse1);
-
-            noteCollectionRef.add(contenuNote)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(Creeuncompte.this, "Success", Toast.LENGTH_SHORT).show();
-                            textView3.setVisibility(View.INVISIBLE);
-                        }
-                    });
-
-        }
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
     }
 
 //    private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {

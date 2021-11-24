@@ -4,14 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Studio/AIRJOBS/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.20462962962962963" />
+        <entry key="..\:/Android Studio/AIRJOBS/app/src/main/res/drawable-v24/textlines.xml" value="0.14635416666666667" />
         <entry key="..\:/Android Studio/AIRJOBS/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20462962962962963" />
         <entry key="..\:/Android Studio/AIRJOBS/app/src/main/res/font/comfortaa_light.xml" value="0.20462962962962963" />
         <entry key="..\:/Android Studio/AIRJOBS/app/src/main/res/layout/activity_creeuncompte.xml" value="0.25076923076923074" />
-<<<<<<< HEAD
         <entry key="..\:/Android Studio/AIRJOBS/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
         <entry key="..\:/Android Studio/AIRJOBS/app/src/main/res/layout/activity_recuperationmotdepasse.xml" value="0.13020833333333334" />
-=======
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
       </map>
     </option>
   </component>

@@ -14,11 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/comfortaa_light"
-<<<<<<< HEAD
         android:text="Récupération du mot de passe"
-=======
-        android:text="Récupération du mot de passe et de l'identifiant"
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
@@ -40,11 +36,7 @@
         android:textSize="20sp" />
 
     <EditText
-<<<<<<< HEAD
         android:id="@+id/loginrecup"
-=======
-        android:id="@+id/login"
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         android:layout_width="310dp"
         android:layout_height="30dp"
 
@@ -57,31 +49,16 @@
 
 
         android:background="@drawable/textlines"
-<<<<<<< HEAD
         />
 
     <Button
         android:id="@+id/buttonrecup"
-=======
-
-
-
-
-
-        />
-
-    <Button
-        android:id="@+id/buttonlog"
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:backgroundTint="#348C72"
         android:fontFamily="@font/comfortaa_light"
-<<<<<<< HEAD
         android:onClick="resetpassword"
-=======
->>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         android:text="OK"
         android:textColor="#000000"
         app:cornerRadius="20dp" />
