@@ -119,6 +119,7 @@ public class Creeuncompte extends AppCompatActivity {
                                     /** 5.2 Association de l'utilisateur courant à FirebaseUser dans le cadre du
                                      * changement de nom **/
                                     firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                    startActivity(new Intent(Creeuncompte.this, Deconexionpage.class));
 //                               // Affichage d'un toast de réussite
 //                               Toast.makeText(SignupActivity.this, R.string.user_created_successfully, Toast.LENGTH_SHORT).show();
 //                               // Lancement de l'activité suivante
@@ -181,28 +182,28 @@ public class Creeuncompte extends AppCompatActivity {
 
 
 
-        Log.i("Send email", "");
-
-        String[] TO = {"kpnsimms@gmail.com"};
-        //String[] CC = {"xyz@gmail.com"};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-
-
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        //emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
-            Log.i("Finished sending email...", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(Creeuncompte.this,
-                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
+//        Log.i("Send email", "");
+//
+//        String[] TO = {"kpnsimms@gmail.com"};
+//        //String[] CC = {"xyz@gmail.com"};
+//        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+//        emailIntent.setData(Uri.parse("mailto:"));
+//        emailIntent.setType("text/plain");
+//
+//
+//        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+//        //emailIntent.putExtra(Intent.EXTRA_CC, CC);
+//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
+//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+//
+//        try {
+//            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+//            finish();
+//            Log.i("Finished sending email...", "");
+//        } catch (android.content.ActivityNotFoundException ex) {
+//            Toast.makeText(Creeuncompte.this,
+//                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+//        }
 
     }
 
