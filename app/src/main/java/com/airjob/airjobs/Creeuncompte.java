@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Creeuncompte extends AppCompatActivity {
+public class Creeuncompte extends AppCompatActivity{
 
     private FirebaseUser firebaseUser;
     private FirebaseFirestore db;
@@ -156,6 +156,8 @@ public class Creeuncompte extends AppCompatActivity {
             } else {
                 // startActivity(new Intent(SignupActivity.this, NoInternetActivity.class));
             }
+            //commentaire de test numero 2
+
 
 
 
