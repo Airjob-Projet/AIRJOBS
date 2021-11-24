@@ -147,6 +147,7 @@ public class Creeuncompte extends AppCompatActivity {
             } else {
                 // startActivity(new Intent(SignupActivity.this, NoInternetActivity.class));
             }
+            //commentaire de test
 
             /** Modelcreeruncompte contenuNote = new Modelcreeruncompte(Identifiant1, Email1, motdepasse1);
              noteCollectionRef.add(contenuNote)
