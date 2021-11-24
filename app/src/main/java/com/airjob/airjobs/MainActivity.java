@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+>>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,12 +19,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+<<<<<<< HEAD
+=======
+import com.google.android.gms.tasks.OnSuccessListener;
+>>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+<<<<<<< HEAD
+=======
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+>>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +51,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView alert1;
     private TextView alert2;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
     private Button buttonlog;
 
     private String logs;
@@ -49,9 +65,15 @@ public class MainActivity extends AppCompatActivity {
 
         creeuncompte = findViewById(R.id.creeuncompte);
         motdepassoublie = findViewById(R.id.motdepassoublie);
+<<<<<<< HEAD
         buttonlog=findViewById(R.id.buttonrecup);
 
         login1=findViewById(R.id.loginrecup);
+=======
+        buttonlog=findViewById(R.id.buttonlog);
+
+        login1=findViewById(R.id.login);
+>>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         motdepasselog1=findViewById(R.id.motdepasselog);
 
         db=FirebaseFirestore.getInstance();
@@ -66,10 +88,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
 
         init();
 
 
+=======
+        init();
+
+>>>>>>> 90083be11bce38cdd0227a2075f2276518aebbbf
         creeuncompte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
