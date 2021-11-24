@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AirJobs</string>
+    <string name="title_setting">Settings</string>
+    <string name="title_localisation">Maps</string>
+    <string name="title_findit">Find It</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_profil">Profil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

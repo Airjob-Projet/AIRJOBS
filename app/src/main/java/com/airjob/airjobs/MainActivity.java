@@ -30,29 +30,20 @@ public class MainActivity extends AppCompatActivity {
 
     private String login, motdepasselog;
 
-
-
     private FirebaseFirestore db;
     private DocumentReference noteRef;
     private CollectionReference noteCollectionRef;
-
-
 
     private TextView creeuncompte;
     private TextView motdepassoublie;
     private TextView alert1;
     private TextView alert2;
 
-
     private Button buttonlog;
 
     private String logs;
 
     private String ok;
-
-
-
-
 
     private void init(){
 
@@ -70,17 +61,12 @@ public class MainActivity extends AppCompatActivity {
         alert2=findViewById(R.id.alert2);
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         init();
-
 
         creeuncompte.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         motdepassoublie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,80 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
-
-//        buttonlog.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//                noteCollectionRef.get()
-//                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onSuccess(QuerySnapshot listeSnapshots) {
-//                                String notes = "";
-//                                for (QueryDocumentSnapshot documentSnapshot : listeSnapshots) {
-//                                    // pour chaque element(snapshot) de la liste
-//
-//                                    Modelcreeruncompte contenuNote = documentSnapshot.toObject(Modelcreeruncompte.class);
-//
-//                                    String getIdentifiant1 = contenuNote.getIdentifiant().trim();
-//
-//                                    logs = login.getText().toString().trim();
-//
-//                                    System.out.println("logi: "+logs + " getidentifiant:  " + getIdentifiant1);
-//
-//                                    if(getIdentifiant1==logs) {
-//
-//                                        ok = "good";
-//
-//                                        System.out.println( " test  ");
-////                                    contenuNote.setDocumentId(documentSnapshot.getId());
-////
-////                                    String documentId= contenuNote.getDocumentId();
-////                                    String titre = contenuNote.getTitre();
-////                                    String note = contenuNote.getNote();
-////
-////
-////                                         notes += documentId + "\nTitre : "+titre + "\nNote : " +note +"\n\n";
-//
-//
-//                                    }
-//                                    // tvSavedNote.setText(notes);
-//                                }
-//                            }
-//                        });
-//
-//
-//                System.out.println("isok?:   " + ok);
-//
-//
-//                if(ok=="good")
-//                {
-//                    Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-//                }
-//                else
-//                {
-//                    alert1.setVisibility(View.VISIBLE);
-//                }
-//
-//
-//        }
-//
-//
-//
-//
-//
-//
-//
-//        });
-
-
-
-
-
 
     public void btnLoginClick(View view) {
         login = login1.getText().toString().trim();
@@ -190,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             if (Util.connectionAvailable(this)) // Si la connexion fonctionne
             { // Alors on exécute la méthode
                 // 8.2 Si la connexion se fait alors on affiche la progressBar
-                //progressBar.setVisibility(View.VISIBLE);
                 /** 5 Connexion à authenticator en utilisant les tools Firebase cf cours**/
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signInWithEmailAndPassword(login, motdepasselog)
@@ -198,11 +109,10 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 // 8.3 Que la connexion se fasse ou non on fait disparaître la progressBar
-                                //progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     // Remplissage par la suite
                                     /** 7 Ajout du lien vers mainActivity si l'utilisateur est bien connecté **/
-                                    startActivity(new Intent(MainActivity.this, Deconexionpage.class));
+                                    startActivity(new Intent(MainActivity.this, HomePage.class));
                                     // Utilisation de finish() pour fermer l'activité présente
                                     finish();
                                 } else {
@@ -217,45 +127,19 @@ public class MainActivity extends AppCompatActivity {
                 // 9.1 Sinon
             } else {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                // startActivity(new Intent(LoginActivity.this, NoInternetActivity.class));
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public void openActivity2(){
         Intent intent = new Intent(this, Creeuncompte.class);
         startActivity(intent);
     }
 
-
-
-
-
     public void openActivity3(){
         Intent intent = new Intent(this, Recuperationmotdepasse.class);
         startActivity(intent);
     }
-
-
-
-
-
 
     @Override
     protected void onStart() {
@@ -264,20 +148,10 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         if (firebaseUser != null) {
-            startActivity(new Intent(MainActivity.this, Deconexionpage.class));
+            startActivity(new Intent(MainActivity.this, HomePage.class));
             finish();
         }
     }
-
-
-
-
-
-
-
-
-
-
 
     /** 12 Ajout des boutons next et send à la place du retour chariot du keyboard **/
     private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
@@ -291,9 +165,5 @@ public class MainActivity extends AppCompatActivity {
             return false; // On laisse le return à false pour empêcher le comportement normal du clavier
         }
     };
-
-
-
-
 
 }

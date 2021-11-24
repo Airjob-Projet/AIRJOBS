@@ -37,14 +37,12 @@ public class Creeuncompte extends AppCompatActivity {
 
     private TextView textView3, textView7, textView4;
 
-
     private void init() {
 
         Email = findViewById(R.id.loginrecup);
         Identifiant = findViewById(R.id.motdepasselog);
         motdepasse = findViewById(R.id.motdepasse);
         motdepasse2 = findViewById(R.id.motdepasse2);
-
 
         db = FirebaseFirestore.getInstance();
 
@@ -56,7 +54,6 @@ public class Creeuncompte extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +63,12 @@ public class Creeuncompte extends AppCompatActivity {
 
     }
 
-
     public void addcompte(View view) {
 
         String Email1 = Email.getText().toString().trim();
         String Identifiant1 = Identifiant.getText().toString().trim();
         String motdepasse1 = motdepasse.getText().toString().trim();
         String motdepassebis = motdepasse2.getText().toString().trim();
-
 
         if (motdepasse1.length() < 6) {
             textView3.setVisibility(View.VISIBLE);}
@@ -94,12 +89,7 @@ public class Creeuncompte extends AppCompatActivity {
         } else if (motdepassebis.equals("")) {
             motdepasse2.setError("enterpassword");
         }
-
-
         else {
-
-
-
             // 12 Ajout de la vérification de la connection internet
             if(com.airjob.airjobs.Util.connectionAvailable(this))// Si la connexion fonctionne
 
@@ -156,16 +146,7 @@ public class Creeuncompte extends AppCompatActivity {
             } else {
                 // startActivity(new Intent(SignupActivity.this, NoInternetActivity.class));
             }
-
-
-
-
-
-
-
-
-
-
+            //commentaire de test numero 2
 
             /** Modelcreeruncompte contenuNote = new Modelcreeruncompte(Identifiant1, Email1, motdepasse1);
 
@@ -177,10 +158,7 @@ public class Creeuncompte extends AppCompatActivity {
             textView3.setVisibility(View.INVISIBLE);
             }
             });**/
-
         }
-
-
 
 //        Log.i("Send email", "");
 //
@@ -207,14 +185,6 @@ public class Creeuncompte extends AppCompatActivity {
 
     }
 
-
-
-
-
-
-
-
-
 //    private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
 //        @Override
 //        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -226,9 +196,6 @@ public class Creeuncompte extends AppCompatActivity {
 //            return false; // On laisse le return à false pour empêcher le comportement normal du clavier
 //        }
 //    };
-
-
-
 
     /** 12 Ajout des boutons next et send à la place du retour chariot du keyboard **/
     private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
@@ -242,8 +209,4 @@ public class Creeuncompte extends AppCompatActivity {
             return false; // On laisse le return à false pour empêcher le comportement normal du clavier
         }
     };
-
-
-
-
 }

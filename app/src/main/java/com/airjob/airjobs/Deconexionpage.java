@@ -17,21 +17,12 @@ public class Deconexionpage extends AppCompatActivity {
         setContentView(R.layout.activity_deconexionpage);
     }
 
-
-
-
-
-
-
-
-    public void deco(View view) {
-        FirebaseAuth.getInstance().signOut();
-//        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-//        firebaseUser = null;
-        startActivity(new Intent(Deconexionpage.this, MainActivity.class));
-
-    }
-
-
+//    public void deco(View view) {
+//        FirebaseAuth.getInstance().signOut();
+////        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+////        firebaseUser = null;
+//        startActivity(new Intent(Deconexionpage.this, MainActivity.class));
+//
+//    }
 
 }
