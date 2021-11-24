@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B8D3BE"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="Récupération du mot de passe et de l'identifiant"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000000"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="Email"
+        android:textColor="#000000"
+
+
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/login"
+        android:layout_width="310dp"
+        android:layout_height="30dp"
+
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+
+        android:width="4dp"
+        android:color="@color/black"
+
+
+        android:background="@drawable/textlines"
+
+
+
+
+
+        />
+
+    <Button
+        android:id="@+id/buttonlog"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="#348C72"
+        android:fontFamily="@font/comfortaa_light"
+        android:text="OK"
+        android:textColor="#000000"
+        app:cornerRadius="20dp" />
+
+</LinearLayout>
