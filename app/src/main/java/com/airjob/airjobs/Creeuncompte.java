@@ -156,6 +156,8 @@ public class Creeuncompte extends AppCompatActivity {
             } else {
                 // startActivity(new Intent(SignupActivity.this, NoInternetActivity.class));
             }
+            //commentaire de test numero 2
+
 
 
 
