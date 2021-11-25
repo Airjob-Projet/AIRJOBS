@@ -6,7 +6,6 @@ public class Modelcreeruncompte {
     private String email;
     private String motdepasse;
 
-
     public Modelcreeruncompte(String identifiant, String email, String motdepasse) {
         this.identifiant = identifiant;
         this.email = email;
@@ -15,7 +14,6 @@ public class Modelcreeruncompte {
 
     public Modelcreeruncompte() {
     }
-
 
     public String getIdentifiant() {
         return identifiant;

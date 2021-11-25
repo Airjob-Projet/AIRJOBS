@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.settings.SettingsFragment">
+
+    <TextView
+        android:id="@+id/text_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B8D3BE"
+        android:orientation="vertical"
+        tools:context=".Deconexionpage">
+
+        <LinearLayout
+            android:id="@+id/lLDeconnexion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:background="#F0EDED"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:layout_gravity="top|left"
+                android:layout_marginLeft="30dp"
+                app:srcCompat="@drawable/poweroff" />
+
+            <TextView
+                android:id="@+id/tvDeconnexion"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#F0EDED"
+                android:paddingLeft="30dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="Déconnexion"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="#F0EDED"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="80dp"
+                android:layout_gravity="top|left"
+                android:layout_marginLeft="30dp"
+                app:srcCompat="@drawable/modifprofil" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvModificationProfil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="#F0EDED"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp"
+                    android:text="Modification du profil"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvModificationProfilTexte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:paddingLeft="30dp"
+                    android:text="cv, offres, compétences, medias." />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="1dp"
+            android:background="#F0EDED"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="80dp"
+                android:layout_gravity="top|left"
+                android:layout_marginLeft="30dp"
+                app:srcCompat="@drawable/optiongeo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvOptionGeolocalisation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="#F0EDED"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp"
+                    android:text="Options géolocalisation"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvOptionGeolocalisationTexte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:paddingLeft="30dp"
+                    android:text="Distance, choix des regions..." />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="1dp"
+            android:background="#F0EDED"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="80dp"
+                android:layout_gravity="top|left"
+                android:layout_marginLeft="30dp"
+                app:srcCompat="@drawable/optionfiltre" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvOptionFiltre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="#F0EDED"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp"
+                    android:text="Options filtres des profils"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:paddingLeft="30dp"
+                    android:text="choix des profils à afficher(offre, profils, freelance...)" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
