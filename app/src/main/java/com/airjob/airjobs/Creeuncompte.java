@@ -109,7 +109,7 @@ public class Creeuncompte extends AppCompatActivity {
                                     /** 5.2 Association de l'utilisateur courant à FirebaseUser dans le cadre du
                                      * changement de nom **/
                                     firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                                    startActivity(new Intent(Creeuncompte.this, Deconexionpage.class));
+                                    startActivity(new Intent(Creeuncompte.this, HomePage.class));
 //                               // Affichage d'un toast de réussite
 //                               Toast.makeText(SignupActivity.this, R.string.user_created_successfully, Toast.LENGTH_SHORT).show();
 //                               // Lancement de l'activité suivante

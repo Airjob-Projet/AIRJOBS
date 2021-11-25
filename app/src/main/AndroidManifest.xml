@@ -15,9 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AirJobs">
         <activity
-            android:name=".Deconexionpage"
-            android:exported="true" />
-        <activity
             android:name=".Recuperationmotdepasse"
             android:exported="true" />
         <activity
