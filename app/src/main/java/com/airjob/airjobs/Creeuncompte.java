@@ -45,7 +45,6 @@ public class Creeuncompte extends AppCompatActivity{
         motdepasse = findViewById(R.id.motdepasse);
         motdepasse2 = findViewById(R.id.motdepasse2);
 
-
         db = FirebaseFirestore.getInstance();
 
         noteCollectionRef = db.collection("notes");
@@ -56,16 +55,13 @@ public class Creeuncompte extends AppCompatActivity{
 
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creeuncompte);
 
         init();
-
     }
-
 
     public void addcompte(View view) {
 
@@ -73,7 +69,6 @@ public class Creeuncompte extends AppCompatActivity{
         String Identifiant1 = Identifiant.getText().toString().trim();
         String motdepasse1 = motdepasse.getText().toString().trim();
         String motdepassebis = motdepasse2.getText().toString().trim();
-
 
         if (motdepasse1.length() < 6) {
             textView3.setVisibility(View.VISIBLE);}
@@ -94,80 +89,26 @@ public class Creeuncompte extends AppCompatActivity{
         } else if (motdepassebis.equals("")) {
             motdepasse2.setError("enterpassword");
         }
-
-
         else {
-
-
-
-            // 12 Ajout de la vérification de la connection internet
+          // 12 Ajout de la vérification de la connection internet
             if(com.airjob.airjobs.Util.connectionAvailable(this))// Si la connexion fonctionne
 
             { // Alors on exécute la méthode
-                // 11.9 ProgressBar
-                // progressBar.setVisibility(View.VISIBLE);
                 final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.createUserWithEmailAndPassword(Email1, motdepasse1)
-                        // Ajout la méthode addOnCompleteListener pour vérifier la bonne transmition des
-                        // informations à Firebase Authenticator
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                                // 11.10 ProgressBar
-                                // progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     /** 5.2 Association de l'utilisateur courant à FirebaseUser dans le cadre du
                                      * changement de nom **/
                                     firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                                     startActivity(new Intent(Creeuncompte.this, Deconexionpage.class));
-//                               // Affichage d'un toast de réussite
-//                               Toast.makeText(SignupActivity.this, R.string.user_created_successfully, Toast.LENGTH_SHORT).show();
-//                               // Lancement de l'activité suivante
-//                               startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-//                                /** 6.3 On appelle la méthode updateOnlyUser() pour valider l'enreistrement dans Authenticator
-//                                 * et dans RealTime db les 2 lignes commentées ci-dessus ne s'affiche que si l'enregistrement
-//                                 * c'est bien passé dans les 2 endroits
-//                                 */
-//                                updateOnlyUser();
                                     /** 8 On lance la bonne méthode d'enregistrement dans la base en fonction de l'ajout d'un avatar ou non **/
-//                                    if (localFileUri != null) {
-//                                        updateNameAndPhoto();
-//                                    } else {
-//                                        updateNameOnly();
-//                                    }
                                 } else {
-                                    // Affichage d'un Toast d'erreur avec l'erreur de la task (%1$s)
-//                                    Toast.makeText(SignupActivity.this,
-//                                            getString(R.string.signup_failed, task.getException()),
-//                                            Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-                // A noter qu'il est possible d'ajouter la méthode suivante, identique au else ci-dessus
-//            .addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                  Toast.makeText(SignupActivity.this,
-//                                       getString(R.string.signup_failed, task.getException()),
-//                                       Toast.LENGTH_SHORT).show();
-//                }
-//            });
-                // 9.1 Sinon
-            } else {
-                // startActivity(new Intent(SignupActivity.this, NoInternetActivity.class));
-            }
-            //commentaire de test numero 2
-
-
-
-
-
-
-
-
-
-
-
 
             /** Modelcreeruncompte contenuNote = new Modelcreeruncompte(Identifiant1, Email1, motdepasse1);
 
@@ -181,56 +122,7 @@ public class Creeuncompte extends AppCompatActivity{
             });**/
 
         }
-
-
-
-//        Log.i("Send email", "");
-//
-//        String[] TO = {"kpnsimms@gmail.com"};
-//        //String[] CC = {"xyz@gmail.com"};
-//        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-//        emailIntent.setData(Uri.parse("mailto:"));
-//        emailIntent.setType("text/plain");
-//
-//
-//        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-//        //emailIntent.putExtra(Intent.EXTRA_CC, CC);
-//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
-//
-//        try {
-//            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-//            finish();
-//            Log.i("Finished sending email...", "");
-//        } catch (android.content.ActivityNotFoundException ex) {
-//            Toast.makeText(Creeuncompte.this,
-//                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
-//        }
-
     }
-
-
-
-
-
-
-
-
-
-//    private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
-//        @Override
-//        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//            // Utilisation de actionId qui correspond à l'action ajouter dans le xml
-//            switch (actionId){
-//                case EditorInfo.IME_ACTION_DONE:
-//                    addcompte(v);
-//            }
-//            return false; // On laisse le return à false pour empêcher le comportement normal du clavier
-//        }
-//    };
-
-
-
 
     /** 12 Ajout des boutons next et send à la place du retour chariot du keyboard **/
     private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
@@ -244,8 +136,5 @@ public class Creeuncompte extends AppCompatActivity{
             return false; // On laisse le return à false pour empêcher le comportement normal du clavier
         }
     };
-
-
-
 
 }
