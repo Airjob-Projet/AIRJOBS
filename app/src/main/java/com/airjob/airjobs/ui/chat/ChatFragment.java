@@ -1,42 +1,83 @@
 package com.airjob.airjobs.ui.chat;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.airjob.airjobs.ItemChatAdapter;
+import com.airjob.airjobs.ModelChat;
+import com.airjob.airjobs.R;
 import com.airjob.airjobs.databinding.FragmentChatBinding;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatFragment extends Fragment {
 
 //    private TextView tvChat;
 
-    private ChatViewModel finditViewModel;
+
+     RecyclerView recyclerView;
+     List<ModelChat> itemChatList;
+     ItemChatAdapter chatAdapter;
+
+//    private ChatViewModel finditViewModel;
     private FragmentChatBinding binding;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        finditViewModel =
-                new ViewModelProvider(this).get(ChatViewModel.class);
+//        finditViewModel =
+//                new ViewModelProvider(this).get(ChatViewModel.class);
 
         binding = FragmentChatBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View view = binding.getRoot();
 
-        final TextView textView = binding.tvChat;
-        finditViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+
+        recyclerView = binding.rvChat;
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+        initData();
+
+        recyclerView.setAdapter(new ItemChatAdapter(initData(),getContext()));
+
+
+
+
+
+        return view;
+    }
+
+    private List<ModelChat> initData() {
+        itemChatList=new ArrayList<>();
+        itemChatList.add(new ModelChat(R.drawable.musk, "Elon musk", "9:30"));
+        itemChatList.add(new ModelChat(R.drawable.macron, "Emmanuel Macron", "15:20"));
+        itemChatList.add(new ModelChat(R.drawable.dsk, "Dominique Strauss Khan", "22:15"));
+        itemChatList.add(new ModelChat(R.drawable.cheguevara, "Che Guevarra", "00:45"));
+
+
+
+        return itemChatList;
+
+    }
+
+    public void ChatMessage(){
+
+        startActivity(new Intent(getActivity(),ChatCommFragment.class));
+
     }
 
     @Override
