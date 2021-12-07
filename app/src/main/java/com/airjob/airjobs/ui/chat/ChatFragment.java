@@ -10,6 +10,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+<<<<<<< HEAD
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.airjob.airjobs.R;
+import com.airjob.airjobs.databinding.FragmentChatBinding;
+=======
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +26,7 @@ import com.airjob.airjobs.ModelChat;
 import com.airjob.airjobs.R;
 import com.airjob.airjobs.databinding.FragmentChatBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
+>>>>>>> 638de1e42d93a5e9353a9e2f75136f242b42484b
 
 import java.util.ArrayList;
 import java.util.List;

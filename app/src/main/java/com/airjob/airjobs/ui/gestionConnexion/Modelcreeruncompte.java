@@ -1,4 +1,4 @@
-package com.airjob.airjobs;
+package com.airjob.airjobs.ui.gestionConnexion;
 
 public class Modelcreeruncompte {
 

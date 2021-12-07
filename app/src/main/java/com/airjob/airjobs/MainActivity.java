@@ -1,6 +1,7 @@
 package com.airjob.airjobs;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airjob.airjobs.ui.gestionConnexion.Creeuncompte;
+import com.airjob.airjobs.ui.gestionConnexion.Recuperationmotdepasse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -65,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.hide();
+=======
+>>>>>>> 638de1e42d93a5e9353a9e2f75136f242b42484b
 
         init();
 

@@ -1,8 +1,7 @@
-package com.airjob.airjobs;
-
-import static android.content.ContentValues.TAG;
+package com.airjob.airjobs.ui.gestionConnexion;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.airjob.airjobs.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +35,11 @@ public class Recuperationmotdepasse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperationmotdepasse);
+<<<<<<< HEAD:app/src/main/java/com/airjob/airjobs/ui/gestionConnexion/Recuperationmotdepasse.java
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.hide();
+=======
+>>>>>>> 638de1e42d93a5e9353a9e2f75136f242b42484b:app/src/main/java/com/airjob/airjobs/Recuperationmotdepasse.java
 
         init();
     }

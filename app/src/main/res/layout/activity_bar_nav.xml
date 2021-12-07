@@ -9,7 +9,11 @@
         android:id="@+id/nav_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
+        android:background="@color/white"
+=======
         android:background="@color/colorBarMenu"
+>>>>>>> 638de1e42d93a5e9353a9e2f75136f242b42484b
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

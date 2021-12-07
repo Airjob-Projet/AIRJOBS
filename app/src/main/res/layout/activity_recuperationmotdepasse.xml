@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B8D3BE"
+    android:background="@drawable/degrade"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -22,46 +22,29 @@
         android:textStyle="bold"
         android:typeface="normal" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/comfortaa_light"
-        android:text="Email"
-        android:textColor="#000000"
-
-
-        android:textSize="20sp" />
-
     <EditText
         android:id="@+id/loginrecup"
-        android:layout_width="310dp"
-        android:layout_height="30dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
 
+        android:layout_marginTop="50dp"
+
+        android:background="@color/white"
         android:ems="10"
+
+
+        android:hint="Email"
+
+
         android:inputType="textPersonName"
-        android:textColor="@color/black"
-
-        android:width="4dp"
-        android:color="@color/black"
-
-
-        android:background="@drawable/textlines"
-
-
-
-
-
-        />
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/buttonrecup"
         android:layout_width="145dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:backgroundTint="#348C72"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="#FFC107"
         android:fontFamily="@font/comfortaa_light"
         android:onClick="resetpassword"
         android:text="OK"
