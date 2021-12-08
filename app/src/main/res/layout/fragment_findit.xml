@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     tools:context=".ui.findit.FinditFragment"
     android:paddingBottom="?attr/actionBarSize">
 
@@ -47,21 +46,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:tint="@color/white" />
 
-=======
-    tools:context=".ui.findit.FinditFragment">
-
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
->>>>>>> 638de1e42d93a5e9353a9e2f75136f242b42484b
 </androidx.constraintlayout.widget.ConstraintLayout>

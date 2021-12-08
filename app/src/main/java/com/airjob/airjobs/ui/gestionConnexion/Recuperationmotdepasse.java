@@ -35,11 +35,8 @@ public class Recuperationmotdepasse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperationmotdepasse);
-<<<<<<< HEAD:app/src/main/java/com/airjob/airjobs/ui/gestionConnexion/Recuperationmotdepasse.java
         ActionBar actionBar=getSupportActionBar();
         actionBar.hide();
-=======
->>>>>>> 638de1e42d93a5e9353a9e2f75136f242b42484b:app/src/main/java/com/airjob/airjobs/Recuperationmotdepasse.java
 
         init();
     }

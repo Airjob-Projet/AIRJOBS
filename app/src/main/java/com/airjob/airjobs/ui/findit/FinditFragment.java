@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -58,26 +57,10 @@ private String profilmetier;
     ItemAdapter adapter;
     LinearLayoutManager linearLayoutManager;
     int X,Y;
-=======
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.airjob.airjobs.databinding.FragmentFinditBinding;
-
-public class FinditFragment extends Fragment {
-
-    private FinditViewModel finditViewModel;
->>>>>>> 638de1e42d93a5e9353a9e2f75136f242b42484b
     private FragmentFinditBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-<<<<<<< HEAD
 
 
         binding = FragmentFinditBinding.inflate(inflater, container, false);
@@ -141,34 +124,33 @@ public class FinditFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
-        noteCollectionRef= db.collection("Candidat");
-        noteCollectionRef.get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+
+
+
+
+
+
+
+        noteRef = db.document("Candidat/"+uid);
+        noteRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot listeSnapshots) {
-                        //String notes = "";
-                        for(QueryDocumentSnapshot documentSnapshot : listeSnapshots){
-                            // pour chaque element(snapshot) de la liste
-
-                            ModelProfilCandidat contenuNote2 = documentSnapshot.toObject(ModelProfilCandidat.class);
+                    public void onSuccess(DocumentSnapshot documentSnapshot2) {
+                        if(documentSnapshot2.exists()){
 
 
 
 
-                            id1=documentSnapshot.getId();
-                            id2=uid;
+                            System.out.println("hello3: ");
+                            ModelProfilCandidat contenuNote= documentSnapshot2.toObject(ModelProfilCandidat.class);
 
-                            System.out.println("id list1: "+id1+ " idsub: "+id2);
-
-
-                            if(id1.equals(id2)){
-                                System.out.println("id Candidat good: "+uid);
-
-                                profil="Recruteur";
-                                profilmetier=contenuNote2.getJob();
-
-                                System.out.println("metier: "+profilmetier);
-
+                            if(contenuNote.getChamps().equals("Employeur")){
+                                profil="Demandeur d'emploi";
+                                profilmetier=contenuNote.getJob();
+                            }else{
+                                profil="Employeur";
+                                profilmetier=contenuNote.getJob();
                             }
 
 
@@ -177,8 +159,17 @@ public class FinditFragment extends Fragment {
 
 
 
+
+                        }else{
+
                         }
-                        //tvSavedNote.setText(notes);
+                        recyclerView.setAdapter(new ItemAdapter(itemList,getContext()));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
                     }
                 });
 
@@ -188,48 +179,9 @@ public class FinditFragment extends Fragment {
 
 
 
-        noteCollectionRef= db.collection("Recruteur");
-        noteCollectionRef.get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot listeSnapshots) {
-                        //String notes = "";
-                        for(QueryDocumentSnapshot documentSnapshot : listeSnapshots){
-                            // pour chaque element(snapshot) de la liste
-
-                             ModelProfilCandidat contenuNote3 = documentSnapshot.toObject(ModelProfilCandidat.class);
-
-                             System.out.println("contenu de la note 3 :" + contenuNote3.getJob());
 
 
 
-                            id1=documentSnapshot.getId();
-                            id2=uid;
-
-                            System.out.println("id list2: "+id1+ " idsub2: "+id2);
-
-
-                            if(id1.equals(id2)){
-                                System.out.println("id recruteur good: "+uid);
-
-                                profil="Candidat";
-                                profilmetier=contenuNote3.getJob();
-
-                                //profilmetier=contenuNote3.getNom();
-                                System.out.println("metier2: "+profilmetier+" profil2: "+profil);
-
-                            }
-
-
-
-
-
-
-
-                        }
-                        //tvSavedNote.setText(notes);
-                    }
-                });
 
 
 
@@ -260,7 +212,7 @@ public class FinditFragment extends Fragment {
 
 
 
-
+        //profil="Candidat";
 
 
         candidat.get()
@@ -273,42 +225,46 @@ public class FinditFragment extends Fragment {
                             // pour chaque element(snapshot) de la liste
 
 
+
+
+
                             ModelProfilCandidat contenuNote6 = documentSnapshot.toObject(ModelProfilCandidat.class);
+                            //profilmetier="Vendeurs";
 
                             System.out.println("id7: " + documentSnapshot.getId()+ " profil: "+profil+" profilmetier: "+ profilmetier);
 //                            System.out.println("contenu de la note candidat :" + contenuNote.getJob());
 
 
 
+                            System.out.println("profil check: "+profil);
+//                            profil="Candidat";
 
-
-                            noteRef = db.document(profil+"/"+documentSnapshot.getId());
+                            noteRef = db.document("Candidat/"+documentSnapshot.getId());
                             noteRef.get()
                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            if(documentSnapshot.exists()){
+                                        public void onSuccess(DocumentSnapshot documentSnapshot2) {
+                                            if(documentSnapshot2.exists()){
 
 
                                                 System.out.println("hello3: ");
-                                                ModelProfilCandidat contenuNote= documentSnapshot.toObject(ModelProfilCandidat.class);
+                                                ModelProfilCandidat contenuNote= documentSnapshot2.toObject(ModelProfilCandidat.class);
 
-                                                System.out.println("metier affiché :" + contenuNote.getJob());
+                                                System.out.println("job :" + contenuNote.getJob());
 
 
+                                                    if(contenuNote.getJob()!=null) {
+                                                        if (contenuNote.getJob().equals(profilmetier) && contenuNote.getChamps().equals(profil)) {
 
-                                                    if(contenuNote.getJob().equals(profilmetier)) {
-                                                         System.out.println("hello: " + contenuNote.getNom());
-                                                        System.out.println("hello2: ");
 
-                                                        itemList.add(new ModelProfilCandidat(contenuNote.getChamps(), contenuNote.getSecteur(), contenuNote.getDescription(), contenuNote.getEmail2(),
-                                                                contenuNote.getJob(),contenuNote.getNom(),contenuNote.getPrenom(), contenuNote.getImageurl(), contenuNote.getPdfurl(),
-                                                                contenuNote.getHobbie1(),contenuNote.getHobbie2(),contenuNote.getHobbie3(),contenuNote.getHobbie4()
-                                                        , contenuNote.getHobbie5(), contenuNote.getTraitdep1(), contenuNote.getTraitdep2(), contenuNote.getTraitdep3(),
-                                                                contenuNote.getTraitdep4(), contenuNote.getTraitdep5(), contenuNote.getExperience()));
+                                                            itemList.add(new ModelProfilCandidat(contenuNote.getChamps(), contenuNote.getSecteur(), contenuNote.getJob(), contenuNote.getDescription(),
+                                                                    contenuNote.getEmail2(), contenuNote.getNom(), contenuNote.getPrenom(), contenuNote.getImageurl(), contenuNote.getPdfurl(),
+                                                                    contenuNote.getHobbie1(), contenuNote.getHobbie2(), contenuNote.getHobbie3(), contenuNote.getHobbie4(), contenuNote.getHobbie5(),
+                                                                    contenuNote.getTraitdep1(), contenuNote.getTraitdep2(), contenuNote.getTraitdep3(), contenuNote.getTraitdep4(), contenuNote.getTraitdep5(),
+                                                                    contenuNote.getExperience()));
 
+                                                        }
                                                     }
-
 
                                                System.out.println("regarde la"+itemList);
 
@@ -374,24 +330,6 @@ public class FinditFragment extends Fragment {
 
 
 
-
-
-=======
-        finditViewModel =
-                new ViewModelProvider(this).get(FinditViewModel.class);
-
-        binding = FragmentFinditBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textNotifications;
-        finditViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
->>>>>>> 638de1e42d93a5e9353a9e2f75136f242b42484b
     }
 
 

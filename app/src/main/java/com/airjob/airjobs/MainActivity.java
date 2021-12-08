@@ -1,11 +1,14 @@
 package com.airjob.airjobs;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
@@ -68,11 +71,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
         ActionBar actionBar=getSupportActionBar();
         actionBar.hide();
-=======
->>>>>>> 638de1e42d93a5e9353a9e2f75136f242b42484b
 
         init();
 
@@ -173,5 +173,8 @@ public class MainActivity extends AppCompatActivity {
             return false; // On laisse le return à false pour empêcher le comportement normal du clavier
         }
     };
+
+
+
 
 }

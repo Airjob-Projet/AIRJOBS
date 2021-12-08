@@ -73,8 +73,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Diplômé de l’école d’ingénieurs INSA Lyon, je souhaite appliquer mes connaissances techniques à Prodways Group. Je peux vous aider à innover et optimiser vos procédés et produits."
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:text="Diplômé de l’école d’ingénieurs INSA Lyon, je souhaite appliquer mes connaissances techniques à Prodways Group. Je peux vous aider à innover et optimiser vos procédés et produits." />
 
             <TextView
                 android:id="@+id/tvHobbies"

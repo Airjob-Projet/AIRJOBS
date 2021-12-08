@@ -24,26 +24,6 @@ public class ModelProfilCandidat {
 
     public ModelProfilCandidat() {
     }
-//
-//    public void ModelProfilCandidat(String job, String description, String nom, String prenom, String imageurl,
-//                                             String hobbie1, String hobbie2, String hobbie3, String hobbie4, String hobbie5,
-//                                             String traitdep1, String traitdep2, String traitdep3, String traitdep4, String traitdep5) {
-//        this.job = job;
-//        this.description = description;
-//        this.nom = nom;
-//        this.prenom = prenom;
-//        this.imageurl = imageurl;
-//        this.hobbie1 = hobbie1;
-//        this.hobbie2 = hobbie2;
-//        this.hobbie3 = hobbie3;
-//        this.hobbie4 = hobbie4;
-//        this.hobbie5 = hobbie5;
-//        this.traitdep1 = traitdep1;
-//        this.traitdep2 = traitdep2;
-//        this.traitdep3 = traitdep3;
-//        this.traitdep4 = traitdep4;
-//        this.traitdep5 = traitdep5;
-//    }
 
 
     public ModelProfilCandidat(String champs, String secteur, String job, String description, String email2,

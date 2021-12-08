@@ -62,18 +62,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.itemPrenom.setText(itemList1.get(position).getNom()+" "+itemList1.get(position).getPrenom());
         holder.itemJob.setText(itemList1.get(position).getJob());
 
+        holder.itemDescription.setText(itemList1.get(position).getDescription());
+
         holder.itemActivite1.setText(itemList1.get(position).getHobbie1());
-        holder.itemActivite1.setText(itemList1.get(position).getHobbie2());
-        holder.itemActivite1.setText(itemList1.get(position).getHobbie3());
-        holder.itemActivite1.setText(itemList1.get(position).getHobbie4());
-        holder.itemActivite1.setText(itemList1.get(position).getHobbie5());
+        holder.itemActivite2.setText(itemList1.get(position).getHobbie2());
+        holder.itemActivite3.setText(itemList1.get(position).getHobbie3());
+        holder.itemActivite4.setText(itemList1.get(position).getHobbie4());
+        holder.itemActivite5.setText(itemList1.get(position).getHobbie5());
 
 
         holder.itemQualite1.setText(itemList1.get(position).getTraitdep1());
-        holder.itemQualite1.setText(itemList1.get(position).getTraitdep2());
-        holder.itemQualite1.setText(itemList1.get(position).getTraitdep3());
-        holder.itemQualite1.setText(itemList1.get(position).getTraitdep4());
-        holder.itemQualite1.setText(itemList1.get(position).getTraitdep5());
+        holder.itemQualite2.setText(itemList1.get(position).getTraitdep2());
+        holder.itemQualite3.setText(itemList1.get(position).getTraitdep3());
+        holder.itemQualite4.setText(itemList1.get(position).getTraitdep4());
+        holder.itemQualite5.setText(itemList1.get(position).getTraitdep5());
 
 
 
@@ -90,6 +92,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         ImageView itemImage;
         TextView itemJob;
+        TextView itemDescription;
         TextView itemPrenom,
                  itemActivite1,
                  itemActivite2,
@@ -111,6 +114,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             itemPrenom=itemView.findViewById(R.id.tvPrenomNom);
 
             itemJob = itemView.findViewById(R.id.tvMetier);
+            itemDescription= itemView.findViewById(R.id.tvBio);
 
             itemActivite1 = itemView.findViewById(R.id.tvActivite1);
             itemActivite2 = itemView.findViewById(R.id.tvActivite2);
