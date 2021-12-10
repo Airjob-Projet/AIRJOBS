@@ -1,11 +1,17 @@
 package com.airjob.airjobs.ui.findit;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -41,6 +47,9 @@ private String profil;
 private String profilmetier;
 
 
+//    private Button btnTelecharger;
+
+
 
     private DocumentReference noteRef;
 
@@ -63,8 +72,13 @@ private String profilmetier;
                              ViewGroup container, Bundle savedInstanceState) {
 
 
+
+
+
+
         binding = FragmentFinditBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
 
         recyclerView= binding.rvProfil;
         recyclerView.setHasFixedSize(true);
@@ -115,6 +129,11 @@ private String profilmetier;
 //        System.out.println("list : "+ initData());
 
 //        recyclerView.setAdapter(new ItemAdapter(initData(),getContext()));
+
+
+
+
+
 
 
         return view;
@@ -229,7 +248,7 @@ private String profilmetier;
 
 
                             ModelProfilCandidat contenuNote6 = documentSnapshot.toObject(ModelProfilCandidat.class);
-                            //profilmetier="Vendeurs";
+
 
                             System.out.println("id7: " + documentSnapshot.getId()+ " profil: "+profil+" profilmetier: "+ profilmetier);
 //                            System.out.println("contenu de la note candidat :" + contenuNote.getJob());
@@ -261,7 +280,7 @@ private String profilmetier;
                                                                     contenuNote.getEmail2(), contenuNote.getNom(), contenuNote.getPrenom(), contenuNote.getImageurl(), contenuNote.getPdfurl(),
                                                                     contenuNote.getHobbie1(), contenuNote.getHobbie2(), contenuNote.getHobbie3(), contenuNote.getHobbie4(), contenuNote.getHobbie5(),
                                                                     contenuNote.getTraitdep1(), contenuNote.getTraitdep2(), contenuNote.getTraitdep3(), contenuNote.getTraitdep4(), contenuNote.getTraitdep5(),
-                                                                    contenuNote.getExperience()));
+                                                                    contenuNote.getExperience(),contenuNote.getIDprofil()));
 
                                                         }
                                                     }

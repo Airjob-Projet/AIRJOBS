@@ -68,7 +68,7 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 
 
     private Uri imageUri;
-
+private String uid;
 
     private DocumentReference noteRef;
     private String variableGlobalJob;
@@ -85,6 +85,8 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
     private Button uploadImg;
     private ImageView ivAvatar;
     java.net.URI juri;
+    java.net.URI juripdf;
+
 
     // Variables Firebase
     private FirebaseFirestore db;
@@ -104,6 +106,8 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 
 
     private String urlname;
+
+    private String pdforimage;
 
 
 
@@ -164,10 +168,14 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 String traitdp5 = etPerso5.getText().toString();
                 String description = etDescription.getText().toString();
 
+                System.out.println("juriPdf : " +juripdf);
+
+
+
                 ModelProfilCandidat contenuNote = new ModelProfilCandidat(variableGlobalChamps, variableGlobalSecteur, variableGlobalJob, description,
                         user.getEmail(),
-                        variableGlobalNom, variableGlobalPrenom, juri.toString(), "url/pdf",
-                        hobbie1, hobbie2, hobbie3, hobbie4, hobbie5, traitdp1, traitdp2, traitdp3, traitdp4, traitdp5, variableGlobalExp);
+                        variableGlobalNom, variableGlobalPrenom, juri.toString(), juripdf.toString(),
+                        hobbie1, hobbie2, hobbie3, hobbie4, hobbie5, traitdp1, traitdp2, traitdp3, traitdp4, traitdp5, variableGlobalExp, uid);
                 if (variableGlobalChamps.contains("Employeur")) {
                     noteRef = db.document("Recruteur/" + uid);
                 } else {
@@ -185,6 +193,7 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
             @Override
             public void onClick(View v) {
 
+                pdforimage="image";
                 System.out.println("hello");
 
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -206,7 +215,7 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
         layout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                pdforimage="pdf";
                 System.out.println("hellopdf");
 
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -273,62 +282,160 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 101) {
-            if (resultCode == RESULT_OK) {
-                Uri localFileUri = data.getData();
+
+        if(pdforimage=="image") {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == 101) {
+                if (resultCode == RESULT_OK) {
+                    Uri localFileUri = data.getData();
 
 
-                if (localFileUri == null) {
-                    ivAvatar.setVisibility(View.GONE);
-                } else {
-                    ivAvatar.setVisibility(View.VISIBLE);
-                    RequestOptions options = new RequestOptions()
-                            .centerCrop()
-                            .circleCrop()
+                    if (localFileUri == null) {
+                        ivAvatar.setVisibility(View.GONE);
+                    } else {
+                        ivAvatar.setVisibility(View.VISIBLE);
+                        RequestOptions options = new RequestOptions()
+                                .centerCrop()
+                                .circleCrop()
 //                        .error(R.drawable.ic_user)
 //                        .placeholder(R.drawable.ic_user)
-                            ;
+                                ;
 
-                    Glide.with(getContext())
-                            .load(localFileUri)
-                            .apply(options)
-                            .fitCenter()
-                            .circleCrop()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(ivAvatar);
+                        Glide.with(getContext())
+                                .load(localFileUri)
+                                .apply(options)
+                                .fitCenter()
+                                .circleCrop()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(ivAvatar);
 
 
-                }
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String strFileName =  user.getUid() + ".jpg";
-
+                    }
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    String strFileName = user.getUid() + ".jpg";
 
 
 //                urlname=strFileName;
 
-                // On place la photo dans un dossier dans le storage
-                //final StorageReference fileRef = fileStorage.child("images/" + strFileName);
-                StorageReference fileRef = storageReference.child("images/"+strFileName);
+                    // On place la photo dans un dossier dans le storage
+                    //final StorageReference fileRef = fileStorage.child("images/" + strFileName);
+                    StorageReference fileRef = storageReference.child("images/" + strFileName);
 
-                // On fait l'upload
+                    // On fait l'upload
 
+                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            try {
+                                juri = new URI(uri.toString());
+
+                            } catch (URISyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+
+
+
+                    fileRef.putFile(localFileUri);
+
+                }
+            }
+
+        }
+        else if (pdforimage=="pdf"){
+
+
+            super.onActivityResult(requestCode, resultCode, data);
+            if(requestCode==86 && resultCode==RESULT_OK&& data!=null){
+
+                pdfUri=data.getData();
+
+                // notification.setText("A file is selected : "+ data.getData().getLastPathSegment());
+
+
+            }else{
+                Toast.makeText(getActivity(), "please select file", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
+
+    }
+
+    private void uploadFile(Uri pdfUri) {
+
+
+        System.out.println("pdfUri : " + pdfUri);
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid()+".pdf";
+
+        final String fileName=System.currentTimeMillis()+"";
+        StorageReference storageReference=storage.getReference();
+
+
+        StorageReference fileRef= storageReference.child("Uploads/" + uid);
+
+        fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
 
                 try {
-                    juri = new URI(localFileUri.toString());
+                    juripdf = new URI(uri.toString());
                 } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
 
-
-                fileRef.putFile(localFileUri);
-
             }
-        }
+        });
+
+        fileRef.putFile(pdfUri);
+
+
+
+
+
+
+
+
+
+
+
+//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        String url=taskSnapshot.getStorage().getDownloadUrl().toString();
+//                        DatabaseReference reference=database.getReference();
+//                        reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                if(task.isSuccessful()){
+//                                    Toast.makeText(getActivity(), "File successfuly uploaded", Toast.LENGTH_SHORT).show();
+//                                }else{
+//                                    Toast.makeText(getActivity(), "File not successfuly uploaded", Toast.LENGTH_SHORT).show();
+//                                }
+//
+//                            }
+//                        });
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(getActivity(), "File not successfuly uploaded", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+
 
 
 
     }
+
+
 
 
 
@@ -599,45 +706,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 
 
 
-    private void uploadFile(Uri pdfUri) {
-
-
-
-
-        final String fileName=System.currentTimeMillis()+"";
-        StorageReference storageReference=storage.getReference();
-
-        storageReference.child("Uploads").child(fileName).putFile(pdfUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        String url=taskSnapshot.getStorage().getDownloadUrl().toString();
-                        DatabaseReference reference=database.getReference();
-                        reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(getActivity(), "File successfuly uploaded", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(getActivity(), "File not successfuly uploaded", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), "File not successfuly uploaded", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
-
-
-    }
-
 
 
 
@@ -666,29 +734,13 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
         startActivityForResult(intent, 86);
 
 
-        pdfUri=intent.getData();
+        //pdfUri=intent.getData();
 
 
 
     }
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode==86 && resultCode==RESULT_OK&& data!=null){
-//
-//            pdfUri=data.getData();
-//            // notification.setText("A file is selected : "+ data.getData().getLastPathSegment());
-//
-//
-//        }else{
-//            Toast.makeText(getActivity(), "please select file", Toast.LENGTH_SHORT).show();
-//        }
-//
-//
-//
-//    }
 
 
 

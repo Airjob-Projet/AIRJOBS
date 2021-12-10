@@ -21,6 +21,7 @@ public class ModelProfilCandidat {
     private String traitdep4;
     private String traitdep5;
     private String experience;
+    private String IDprofil;
 
     public ModelProfilCandidat() {
     }
@@ -29,7 +30,7 @@ public class ModelProfilCandidat {
     public ModelProfilCandidat(String champs, String secteur, String job, String description, String email2,
                                String nom, String prenom, String imageurl, String pdfurl,
                                String hobbie1, String hobbie2, String hobbie3, String hobbie4, String hobbie5,
-                               String traitdep1, String traitdep2, String traitdep3, String traitdep4, String traitdep5, String experience) {
+                               String traitdep1, String traitdep2, String traitdep3, String traitdep4, String traitdep5, String experience, String IDprofil) {
         this.champs = champs;
         this.secteur = secteur;
         this.job = job;
@@ -50,6 +51,7 @@ public class ModelProfilCandidat {
         this.traitdep4 = traitdep4;
         this.traitdep5 = traitdep5;
         this.experience = experience;
+        this.IDprofil= IDprofil;
     }
 
     public String getChamps() {
@@ -212,5 +214,13 @@ public class ModelProfilCandidat {
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public String getIDprofil() {
+        return IDprofil;
+    }
+
+    public void setIDprofil(String IDprofil) {
+        this.IDprofil = IDprofil;
     }
 }
