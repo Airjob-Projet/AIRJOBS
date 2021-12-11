@@ -76,14 +76,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
-//        holder.itemImage.setImageResource(itemList1.get(position).getImageurl());
+//        holder.itemImage.setImageResource(itemList1.get(position).getimageurl());
         RequestOptions options = new RequestOptions()
                 .error(R.drawable.rabbit)
                 .placeholder(R.drawable.cheguevara)
                 ;
 
         Glide.with(this.context)
-                .load(itemList1.get(position).getImageurl())
+                .load(itemList1.get(position).getimageurl())
                 .circleCrop()
                 .override(200,200)
                 .apply(options)
@@ -91,7 +91,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 //                .apply(RequestOptions.circleCropTransform())
                 .into(holder.itemImage);
 
-        Log.i(TAG, "onBindViewHolder: " + itemList1.get(position).getImageurl());
+        Log.i(TAG, "onBindViewHolder: " + itemList1.get(position).getimageurl());
 
         holder.itemPrenom.setText(itemList1.get(position).getNom()+" "+itemList1.get(position).getPrenom());
         holder.itemJob.setText(itemList1.get(position).getJob());

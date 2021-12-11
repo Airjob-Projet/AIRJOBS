@@ -277,10 +277,10 @@ private String profilmetier;
 
 
                                                             itemList.add(new ModelProfilCandidat(contenuNote.getChamps(), contenuNote.getSecteur(), contenuNote.getJob(), contenuNote.getDescription(),
-                                                                    contenuNote.getEmail2(), contenuNote.getNom(), contenuNote.getPrenom(), contenuNote.getImageurl(), contenuNote.getPdfurl(),
+                                                                    contenuNote.getEmail2(), contenuNote.getNom(), contenuNote.getPrenom(), contenuNote.getimageurl(), contenuNote.getPdfurl(),
                                                                     contenuNote.getHobbie1(), contenuNote.getHobbie2(), contenuNote.getHobbie3(), contenuNote.getHobbie4(), contenuNote.getHobbie5(),
                                                                     contenuNote.getTraitdep1(), contenuNote.getTraitdep2(), contenuNote.getTraitdep3(), contenuNote.getTraitdep4(), contenuNote.getTraitdep5(),
-                                                                    contenuNote.getExperience(),contenuNote.getIDprofil()));
+                                                                    contenuNote.getExperience(),contenuNote.getIDprofil(), contenuNote.getStatus(), contenuNote.getSearch()));
 
                                                         }
                                                     }

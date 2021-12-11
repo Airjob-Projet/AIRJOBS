@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.airjob.airjobs.databinding.ActivityBarNavBinding;
+import com.airjob.airjobs.ui.chat.MessageActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -44,8 +45,7 @@ public class HomePage extends AppCompatActivity {
                 R.id.navigation_localisation,
                 R.id.navigation_findit,
                 R.id.navigation_chat,
-                R.id.navigation_profil/*,
-                R.id.btnDeconnexion*/)
+                R.id.navigation_profil)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

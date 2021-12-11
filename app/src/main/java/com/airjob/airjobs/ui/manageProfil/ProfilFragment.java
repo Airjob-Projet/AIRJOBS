@@ -175,7 +175,7 @@ private String uid;
                 ModelProfilCandidat contenuNote = new ModelProfilCandidat(variableGlobalChamps, variableGlobalSecteur, variableGlobalJob, description,
                         user.getEmail(),
                         variableGlobalNom, variableGlobalPrenom, juri.toString(), juripdf.toString(),
-                        hobbie1, hobbie2, hobbie3, hobbie4, hobbie5, traitdp1, traitdp2, traitdp3, traitdp4, traitdp5, variableGlobalExp, uid);
+                        hobbie1, hobbie2, hobbie3, hobbie4, hobbie5, traitdp1, traitdp2, traitdp3, traitdp4, traitdp5, variableGlobalExp, uid,null, null);
                 if (variableGlobalChamps.contains("Employeur")) {
                     noteRef = db.document("Recruteur/" + uid);
                 } else {
