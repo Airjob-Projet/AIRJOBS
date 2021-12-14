@@ -83,7 +83,7 @@ public class UsersFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchUsers(charSequence.toString().toLowerCase());
+                    searchUsers(charSequence.toString().toLowerCase());
             }
 
             @Override
@@ -98,7 +98,7 @@ public class UsersFragment extends Fragment {
 
         Query query1 = db
                 .collection("Candidat")
-                .orderBy("nom")
+                .orderBy("search")
                 .startAt(s)
                 .endAt(s + "\uf8ff");
 
@@ -113,8 +113,8 @@ public class UsersFragment extends Fragment {
 
                             assert user != null;
                             assert firebaseUser != null;
-                            if (!user.getIDprofil().equals(firebaseUser.getUid())){
-                            //if (!user.getIDprofil().contentEquals(firebaseUser.getUid())){ //###a la base etais comme ça
+                            //if (!user.getIDprofil().equals(firebaseUser.getUid())){
+                            if (!user.getIDprofil().contentEquals(firebaseUser.getUid())){ //###a la base etais comme ça
                                 mUsers.add(user);
                             }
                         }

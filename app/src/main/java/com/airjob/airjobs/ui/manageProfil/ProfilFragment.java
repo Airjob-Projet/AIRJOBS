@@ -64,6 +64,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ProfilFragment extends Fragment implements android.widget.AdapterView.OnItemSelectedListener {
@@ -214,7 +215,8 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 ModelProfilCandidat contenuNote = new ModelProfilCandidat(variableGlobalChamps, variableGlobalSecteur, variableGlobalJob, description,
                         user.getEmail(),
                         variableGlobalNom, variableGlobalPrenom, juri.toString(), juripdf.toString(),
-                        hobbie1, hobbie2, hobbie3, hobbie4, hobbie5, traitdp1, traitdp2, traitdp3, traitdp4, traitdp5, variableGlobalExp, uid,null, null);
+                        hobbie1, hobbie2, hobbie3, hobbie4, hobbie5, traitdp1, traitdp2, traitdp3, traitdp4, traitdp5,
+                        variableGlobalExp, uid,"offline", variableGlobalNom.toLowerCase());
 
 
                 noteRef = db.document("Candidat/" + uid);

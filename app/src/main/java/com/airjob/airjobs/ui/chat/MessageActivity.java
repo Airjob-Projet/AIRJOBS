@@ -182,11 +182,13 @@ public class MessageActivity extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (QueryDocumentSnapshot documentSnapshot : value) {
                     ModelProfilCandidat user = documentSnapshot.toObject(ModelProfilCandidat.class);
-                    username.setText(user.getNom() + " "+ user.getPrenom());
-                    if (user.getimageurl().equals("default")) {
-                        profile_image.setImageResource(R.mipmap.ic_launcher);
-                    } else {
-                        Glide.with(getApplicationContext()).load(user.getimageurl()).into(profile_image);
+                    if(idParticipantChat.equals(user.getIDprofil())) {
+                        username.setText(user.getNom() + " " + user.getPrenom());
+                        if (user.getimageurl().equals("default")) {
+                            profile_image.setImageResource(R.mipmap.ic_launcher);
+                        } else {
+                            Glide.with(getApplicationContext()).load(user.getimageurl()).into(profile_image);
+                        }
                     }
                     readMessages(currentUser.getUid(), idParticipantChat, user.getimageurl());
                 }
