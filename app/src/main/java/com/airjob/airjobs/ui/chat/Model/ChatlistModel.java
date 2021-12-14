@@ -1,20 +1,22 @@
 package com.airjob.airjobs.ui.chat.Model;
 
+import java.util.List;
+
 public class ChatlistModel {
-    public String id;
+    public List<String> id;
 
     public ChatlistModel() {
     }
 
-    public ChatlistModel(String id) {
+    public ChatlistModel(List<String> id) {
         this.id = id;
     }
 
-    public String getId() {
+    public List<String> getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(List<String> id) {
         this.id = id;
     }
 }

@@ -4,7 +4,11 @@ import static com.airjob.airjobs.ui.chat.ConstantNode.NODE_CHATLIST;
 import static com.airjob.airjobs.ui.chat.ConstantNode.NODE_CHATS;
 import static com.airjob.airjobs.ui.chat.ConstantNode.NODE_CANDIDATS;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,8 +19,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,13 +35,17 @@ import com.airjob.airjobs.ui.chat.Model.ChatlistModel;
 //import com.airjob.airjobs.ui.chat.Model.UserModel;
 import com.airjob.airjobs.ui.manageProfil.ModelProfilCandidat;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -42,6 +53,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -62,6 +74,7 @@ public class MessageActivity extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private List<ChatModel> mchat;
     private Intent intent;
+    private String CHANNEL_ID = "Messages notifications";
     private ValueEventListener seenListener;
 
     // Var Firebase
@@ -109,9 +122,12 @@ public class MessageActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String token = ""; //###a voir
                 String msg = text_send.getText().toString();
                 if (!msg.equals("")) {
                     sendMessage(currentUser.getUid(), idParticipantChat, msg);
+                    sendNotification(idParticipantChat, msg, token);
+                    createNotificationChannel();
                 } else {
                     Toast.makeText(MessageActivity.this, "You can't send an empty message", Toast.LENGTH_SHORT).show();
                 }
@@ -123,10 +139,13 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.i("##------->>>", "MessageActivity -> idParticipantChat : " + intent.getStringExtra("idParticipantChat"));
+//        Log.i("##------->>>", "MessageActivity -> idParticipantChat : " + intent.getStringExtra("idParticipantChat"));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+
+//        ActionBar actionBar=getSupportActionBar();
+//        actionBar.hide();
 
         // Initialisation des widgets
         init();
@@ -156,14 +175,14 @@ public class MessageActivity extends AppCompatActivity {
         btnSend();
 
         // Query pour le SnapshotListner
-        Query query = db.collection("Users");
+        Query query = db.collection("Candidat");
 
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (QueryDocumentSnapshot documentSnapshot : value) {
                     ModelProfilCandidat user = documentSnapshot.toObject(ModelProfilCandidat.class);
-                    username.setText(user.getNom());
+                    username.setText(user.getNom() + " "+ user.getPrenom());
                     if (user.getimageurl().equals("default")) {
                         profile_image.setImageResource(R.mipmap.ic_launcher);
                     } else {
@@ -216,26 +235,23 @@ public class MessageActivity extends AppCompatActivity {
 
         // Upload de la liaison des participants du chat en question dans Chatlist
 //        chatlistDocumentRef.set(idParticipantChat, idParticipantChat);
-        ChatlistModel newChatChannel = new ChatlistModel(idParticipantChat);
-        newChatChannel.setId(idParticipantChat);
-        chatListCollectionRef.document(currentUser.getUid()).set(idParticipantChat);
+        HashMap<String, Object> addUserToArrayMap = new HashMap<>();
+        addUserToArrayMap.put("id", FieldValue.arrayUnion(idParticipantChat));
 
-//        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
-//                .child(firebaseUser.getUid())
-//                .child(userid);
-//        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (!dataSnapshot.exists()) {
-//                    chatRef.child("id").setValue(userid);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+
+        chatListCollectionRef
+                .document(currentUser.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.getResult().exists()) {
+                            chatListCollectionRef.document(currentUser.getUid()).set(addUserToArrayMap);
+                        } else {
+                            chatListCollectionRef.document(currentUser.getUid()).update(addUserToArrayMap);
+                        }
+                    }
+                });
     }
 
     // Affichage des messages
@@ -261,6 +277,55 @@ public class MessageActivity extends AppCompatActivity {
         });
 
     }
+
+
+
+    // Création du contenu de la notification Push qui sera envoyée au destinataire
+    private void sendNotification(String sender, String msg, String token){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(MessageActivity.this,
+                CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_chat)
+                .setContentTitle(sender)
+                .setContentText(msg)
+//                .setContentIntent(pendingIntent) // Ouverture de l'application sur la page du chat
+                .setAutoCancel(true)
+//                .setLargeIcon(bitmap) // Ajout de l'avatar de l'expéditeur
+                .setColor(getResources().getColor(R.color.teal_200))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT); // La priorité de la notification en général DEFAULT
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(MessageActivity.this);
+        notificationManagerCompat.notify(1, builder.build()); // ATTENTION l'id est UNIQUE pour chacune des notifications que vous allez créer
+    }
+
+    // 2 Pour afficher les notifications sur les versions supérieures à Android 8 // Api26+
+    private void createNotificationChannel() {
+        // On créé des Notification channel seulement pour les versions API 26 et +
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //O = Oreo 8.0
+            String name = "Message notification";
+            String description = "Message's channel notification";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+
+            channel.setDescription(description);
+
+            // Enregistrement de la channel avec le service d'android OS
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            Log.i("###---------------->>>>", "createNotificationChannel: " + "channel : " + channel);
+            manager.createNotificationChannel(channel);
+        }
+    }
+
+    // Pending Intent pour ouvrir l'activité message lors du clic sur la notification
+    private void creaIntent() {
+        Intent intent = new Intent(MessageActivity.this, MessageActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                MessageActivity.this, 0, intent, 0);
+    }
+
+
+
+
 
     // Gestion du statut de l'utilisateur
     private void status(String status) {

@@ -97,8 +97,8 @@ public class UsersFragment extends Fragment {
     private void searchUsers(String s) {
 
         Query query1 = db
-                .collection("user")
-                .orderBy("search")
+                .collection("Candidat")
+                .orderBy("nom")
                 .startAt(s)
                 .endAt(s + "\uf8ff");
 
@@ -113,7 +113,8 @@ public class UsersFragment extends Fragment {
 
                             assert user != null;
                             assert firebaseUser != null;
-                            if (!user.getIDprofil().contentEquals(firebaseUser.getUid())){
+                            if (!user.getIDprofil().equals(firebaseUser.getUid())){
+                            //if (!user.getIDprofil().contentEquals(firebaseUser.getUid())){ //###a la base etais comme ça
                                 mUsers.add(user);
                             }
                         }
@@ -137,8 +138,10 @@ public class UsersFragment extends Fragment {
 
                             assert user != null;
                             assert firebaseUser != null;
-                            if (!user.getIDprofil().contentEquals(firebaseUser.getUid())) {
-//                                Log.i("###----->>>", "autre profils -----> user.getIDprofil: "
+                            if (!user.getIDprofil().equals(firebaseUser.getUid())) {
+                            //if (!user.getIDprofil().contentEquals(firebaseUser.getUid())){ //###a la base etais comme ça
+
+                                //                                Log.i("###----->>>", "autre profils -----> user.getIDprofil: "
 //                                        + user.getIDprofil());
                                 mUsers.add(user);
                             } //else {// ce else est a supprimer

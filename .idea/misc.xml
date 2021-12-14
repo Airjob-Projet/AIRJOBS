@@ -3,27 +3,49 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AIRJOBS/app/src/main/res/drawable-xxhdpi/background_left.xml" value="0.2708333333333333" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/activity_message.xml" value="0.1" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/activity_video_chat_fragment.xml" value="0.2546875" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/chat_item_left.xml" value="0.2546875" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/chat_item_right.xml" value="0.2546875" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/fragment_chat.xml" value="0.2546875" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/fragment_chat_comm.xml" value="0.1" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/fragment_chats.xml" value="0.2546875" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/fragment_profile.xml" value="0.2546875" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/fragment_users.xml" value="0.2546875" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/row_chat.xml" value="0.2796296296296296" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/layout/user_item.xml" value="0.2546875" />
-        <entry key="..\:/AIRJOBS/app/src/main/res/menu/bottom_nav_menu.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/kevin/AndroidStudioProjects/AIRJOBS-08-12-17h00last/app/src/main/res/layout/activity_creeuncompte.xml" value="0.18070652173913043" />
-        <entry key="..\:/Users/kevin/AndroidStudioProjects/AIRJOBS-08-12-17h00last/app/src/main/res/layout/activity_main.xml" value="0.18070652173913043" />
-        <entry key="..\:/Users/kevin/AndroidStudioProjects/AIRJOBS-08-12-17h00last/app/src/main/res/layout/fragment_findit.xml" value="0.17831813576494426" />
-        <entry key="..\:/Users/kevin/AndroidStudioProjects/AIRJOBS-08-12-17h00last/app/src/main/res/layout/fragment_profil.xml" value="0.17831813576494426" />
-        <entry key="..\:/Users/kevin/AndroidStudioProjects/AIRJOBS-08-12-17h00last/app/src/main/res/layout/row_profil.xml" value="0.18070652173913043" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/drawable-anydpi/ic_chat.xml" value="0.1" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/user_item.xml" value="0.1" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2037037037037037" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-hdpi/cadre.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-hdpi/cadre_light.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-v24/ic_notifications_black_24dp.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-v24/ic_search_black_24.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-v24/ic_settings_24.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-v24/textlines.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-xxhdpi/background_left.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-xxhdpi/background_right.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable/ic_round_stream_white.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable/rgb.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable/round_main.xml" value="0.37407407407407406" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable/rounded_corner.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable/rounded_fg.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable/shape_hob.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable/shape_perso.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable/shape_round_shadow.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/activity_message.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/activity_uploadimage.xml" value="0.33" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/chat_item_left.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/chat_item_right.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/fragment_chat.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/fragment_chat_comm.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/fragment_chats.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/fragment_findit.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/fragment_localisation.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/fragment_profil.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/fragment_profile.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/fragment_settings.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/fragment_users.xml" value="0.43013100436681223" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/linear_layout_bdd.xml" value="0.25" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/row_chat.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/row_profil.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/layout/user_item.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
 </project>

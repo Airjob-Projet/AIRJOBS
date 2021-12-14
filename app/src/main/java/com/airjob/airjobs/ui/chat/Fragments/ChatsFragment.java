@@ -1,12 +1,17 @@
 package com.airjob.airjobs.ui.chat.Fragments;
 
+import static com.airjob.airjobs.ui.chat.ConstantNode.NODE_CANDIDATS;
+import static com.airjob.airjobs.ui.chat.ConstantNode.NODE_CHATLIST;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +29,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +47,21 @@ public class ChatsFragment extends Fragment {
     private UserAdapter userAdapter;
     private List<ModelProfilCandidat> mUsers;
 
-    FirebaseUser fuser;
-    DatabaseReference reference; // Avec RealTime
+    private List<ChatlistModel> usersList;   // ###a tester en changeant mUsersConnected par usersList
+    private List<String> mUsersConnected; // Liste des utilisateurs avec lequels une session de chat est ouverte
+
+
+    private FirebaseUser fuser;
+
 
     // Avec Firestore
-    FirebaseFirestore db;
-    private CollectionReference chatCollectionRef;
+    private FirebaseFirestore db;
+    private CollectionReference chatListCollectionRef;
+    private CollectionReference userCollectionReference;
+    private DatabaseReference reference; // Avec RealTime
 
 
-    private List<ChatlistModel> usersList;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,70 +75,61 @@ public class ChatsFragment extends Fragment {
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         usersList = new ArrayList<>();
+        mUsersConnected = new ArrayList<>();
 
-        // Récupération des données sur la base
-        // Avec RealTimeDatabase
-        reference = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
+
+        // Avec Firestore
+        // Init de Firestore
+        db = FirebaseFirestore.getInstance();
+        chatListCollectionRef = db.collection(NODE_CHATLIST);
+        userCollectionReference = db.collection(NODE_CANDIDATS);
+
+//         Création de la liste des utilisateurs avec lesquels une session de chat est ouverte
+        final DocumentReference chatListDocRef = chatListCollectionRef.document(fuser.getUid());
+        chatListDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                usersList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    ChatlistModel chatlist = snapshot.getValue(ChatlistModel.class);
-                    usersList.add(chatlist);
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(getContext(), "Error : " + error, Toast.LENGTH_SHORT).show();
+                    return;
                 }
-
-                chatList();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                if (value != null && value.exists()) {
+                    mUsersConnected.clear();
+                    ChatlistModel chatlist = value.toObject(ChatlistModel.class);
+                    for (int i = 0; i < chatlist.getId().size(); i++) {
+                        String user = chatlist.getId().get(i);
+                        mUsersConnected.add(user);
+                    }
+                    chatList();
+                }
             }
         });
-
-//        // Avec Firestore
-//        // Init de Firestore
-//        db = FirebaseFirestore.getInstance();
-//        chatCollectionRef = db.collection("Chatlist");
-//        chatCollectionRef
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if(task.isSuccessful()){
-//                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-//                                usersList.add(documentSnapshot.toObject())
-//                            }
-//                        }
-//                    }
-//                });
-
         return view;
     }
 
-    private void chatList() {
-        mUsers = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUsers.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    ModelProfilCandidat user = snapshot.getValue(ModelProfilCandidat.class);
-                    for (ChatlistModel chatlist : usersList){
-                        if (user.getIDprofil().equals(chatlist.getId())){
-                            mUsers.add(user);
-                        }
-                    }
-                }
-                userAdapter = new UserAdapter(getContext(), mUsers, true);
-                recyclerView.setAdapter(userAdapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+
+    private void chatList() {
+        userCollectionReference
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Toast.makeText(getContext(), "Error : " + error, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        mUsers.clear();
+                        for (QueryDocumentSnapshot documentSnapshot : value) {
+                            ModelProfilCandidat user = documentSnapshot.toObject(ModelProfilCandidat.class);
+                            for (int i = 0; i < mUsersConnected.size(); i++) {
+                                if (user.getIDprofil().equals(mUsersConnected.get(i))) {
+                                    mUsers.add(user);
+                                }
+                            }
+                        }
+                        userAdapter = new UserAdapter(getContext(), mUsers, true);
+                        recyclerView.setAdapter(userAdapter);
+                    }
+                });
     }
 }

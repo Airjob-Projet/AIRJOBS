@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.Fragment;
 
 import com.airjob.airjobs.HomePage;
@@ -68,7 +70,7 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 
 
     private Uri imageUri;
-private String uid;
+    private String uid;
 
     private DocumentReference noteRef;
     private String variableGlobalJob;
@@ -78,14 +80,22 @@ private String uid;
 
 
     private FragmentProfilBinding binding;
+    private LinearLayout linearFormulaire;
     private TextView tvQuestionHobbies, tvQuestionPerso, tvDescription;
     private EditText etNom, etPrenom, etEntreprise, etPoste, etDescription, etHobbies1, etHobbies2, etHobbies3, etHobbies4, etHobbies5, etPerso1, etPerso2, etPerso3, etPerso4, etPerso5;
     private Spinner sSectorActivity, sProfilType, sJob, sExp;
     private Button AddBdd;
-    private Button uploadImg;
-    private ImageView ivAvatar;
+    private Button uploadPdf;
+    private  ImageView ivAvatar;
     java.net.URI juri;
     java.net.URI juripdf;
+
+    String[] sMyExp = {
+            "Niveau d'expérience",
+            "0-2 ans : Junior",
+            "2-5 ans : Expérimenté",
+            "5 ans+ : Senior"
+    };
 
 
     // Variables Firebase
@@ -112,10 +122,13 @@ private String uid;
 
 
 
+
+
     // Variables des listes
     List<String> profilList = new ArrayList<>();
     List<String> secteurList = new ArrayList<>();
     List<String> metierList = new ArrayList<>();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -128,8 +141,25 @@ private String uid;
         String uid = user.getUid();
 
 
+
+
+//        loadImage(ivAvatar,R.drawable.add_photo);
+
+
+
+
         binding = FragmentProfilBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
+
+
+        ImageView imageInit= binding.ivAvatar;
+        Glide.with(getContext())
+                .load(R.drawable.add_photo)
+                .circleCrop()
+                .override(100,100)
+
+//                .apply(RequestOptions.circleCropTransform())
+                .into(imageInit);
 
 
         db.collection("Type de profils")
@@ -148,6 +178,8 @@ private String uid;
                         }
                     }
                 });
+
+
 
         Button layout = binding.AddBdd;
         layout.setOnClickListener(new View.OnClickListener() {
@@ -170,26 +202,34 @@ private String uid;
 
                 System.out.println("juriPdf : " +juripdf);
 
+                if(juripdf == null || juripdf.toString().equals("")){
+                    juripdf = URI.create("");
+                }
+                if(juri == null || juri.toString().equals("")){
+                    juri= URI.create("");
+                }
+
 
 
                 ModelProfilCandidat contenuNote = new ModelProfilCandidat(variableGlobalChamps, variableGlobalSecteur, variableGlobalJob, description,
                         user.getEmail(),
                         variableGlobalNom, variableGlobalPrenom, juri.toString(), juripdf.toString(),
                         hobbie1, hobbie2, hobbie3, hobbie4, hobbie5, traitdp1, traitdp2, traitdp3, traitdp4, traitdp5, variableGlobalExp, uid,null, null);
-                if (variableGlobalChamps.contains("Employeur")) {
-                    noteRef = db.document("Recruteur/" + uid);
-                } else {
-                    noteRef = db.document("Candidat/" + uid);
-                }
+
+
+                noteRef = db.document("Candidat/" + uid);
+
                 noteRef.set(contenuNote);
+
+                Toast.makeText(getContext(),"Profil enregistrer",Toast.LENGTH_LONG).show();
 
 
             }
+
         });
 
 
-        Button layout2 = binding.uploadImg;
-        layout2.setOnClickListener(new View.OnClickListener() {
+        imageInit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -218,46 +258,20 @@ private String uid;
                 pdforimage="pdf";
                 System.out.println("hellopdf");
 
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
                     selectPdf();
-                } else
+                }
+                else {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
-
-
-
-            }
-
-
-        });
-
-
-
-
-        Button layout4 = binding.uploadPdf2;
-        layout4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                System.out.println("hellopdf");
-
-                if(pdfUri!=null)
-                    uploadFile(pdfUri);
-                else
-                    Toast.makeText(getActivity(), "select a file", Toast.LENGTH_LONG).show();
-
+                }
 
 
             }
 
 
         });
-
-
-
-
-
-
 
         ivAvatar = binding.ivAvatar;
         init(v);
@@ -289,9 +303,19 @@ private String uid;
                 if (resultCode == RESULT_OK) {
                     Uri localFileUri = data.getData();
 
+                    System.out.println("verife image"+localFileUri);
+
 
                     if (localFileUri == null) {
-                        ivAvatar.setVisibility(View.GONE);
+//                        ivAvatar.setVisibility(View.VISIBLE);
+
+                        Glide.with(getContext())
+                                .load(R.drawable.add_photo)
+                                .circleCrop()
+                                .override(100,100)
+
+//                .apply(RequestOptions.circleCropTransform())
+                                .into(ivAvatar);
                     } else {
                         ivAvatar.setVisibility(View.VISIBLE);
                         RequestOptions options = new RequestOptions()
@@ -311,6 +335,7 @@ private String uid;
 
 
                     }
+
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     String strFileName = user.getUid() + ".jpg";
 
@@ -335,10 +360,6 @@ private String uid;
                         }
                     });
 
-
-
-
-
                     fileRef.putFile(localFileUri);
 
                 }
@@ -352,6 +373,15 @@ private String uid;
             if(requestCode==86 && resultCode==RESULT_OK&& data!=null){
 
                 pdfUri=data.getData();
+
+                if(pdfUri!=null) {
+                    uploadFile(pdfUri);
+                }
+                else {
+                    Toast.makeText(getActivity(), "select a file", Toast.LENGTH_LONG).show();
+
+                }
+
 
                 // notification.setText("A file is selected : "+ data.getData().getLastPathSegment());
 
@@ -395,74 +425,13 @@ private String uid;
 
         fileRef.putFile(pdfUri);
 
-
-
-
-
-
-
-
-
-
-
-//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        String url=taskSnapshot.getStorage().getDownloadUrl().toString();
-//                        DatabaseReference reference=database.getReference();
-//                        reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//                                if(task.isSuccessful()){
-//                                    Toast.makeText(getActivity(), "File successfuly uploaded", Toast.LENGTH_SHORT).show();
-//                                }else{
-//                                    Toast.makeText(getActivity(), "File not successfuly uploaded", Toast.LENGTH_SHORT).show();
-//                                }
-//
-//                            }
-//                        });
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(getActivity(), "File not successfuly uploaded", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
-    String[] sMyExp = {
-            "Niveau d'expérience",
-            "0-2 ans : Junior",
-            "2-5 ans : Expérimenté",
-            "5 ans+ : Senior"
-    };
-
 
     public void init(View root) {
         sProfilType = root.findViewById(R.id.sTypeProfil);
@@ -487,6 +456,8 @@ private String uid;
         etPerso3 = root.findViewById(R.id.etPerso3);
         etPerso4 = root.findViewById(R.id.etPerso4);
         etPerso5 = root.findViewById(R.id.etPerso5);
+        uploadPdf = root.findViewById(R.id.uploadPdf);
+        linearFormulaire=root.findViewById(R.id.linearFormulaire);
 
     }
 
@@ -508,15 +479,18 @@ private String uid;
                 } else {
                     variableGlobalChamps = profilList.get(i);
                     spinnerSecteur(view, profilList.get(i));
+                    linearFormulaire.setVisibility(View.VISIBLE);
                     if (variableGlobalChamps.equals("Employeur")) {
                         etEntreprise.setVisibility(View.VISIBLE);
                         etPoste.setVisibility(View.VISIBLE);
+                        uploadPdf.setText(R.string.pdfDeposeRecruteur);
+
                     } else {
                         etEntreprise.setVisibility(View.GONE);
                         etPoste.setVisibility(View.GONE);
+                        uploadPdf.setText(R.string.pdfDeposeCandidat);
                     }
-                    etNom.setVisibility(View.VISIBLE);
-                    etPrenom.setVisibility(View.VISIBLE);
+
                 }
                 break;
             case R.id.sSectorActivity:
@@ -546,6 +520,7 @@ private String uid;
                     tvDescription.setVisibility(View.VISIBLE);
                     etDescription.setVisibility(View.VISIBLE);
                     AddBdd.setVisibility(View.VISIBLE);
+                    uploadPdf.setVisibility(View.VISIBLE);
                     tvQuestionHobbies.setVisibility(View.VISIBLE);
                     etHobbies1.setVisibility(View.VISIBLE);
                     etHobbies2.setVisibility(View.VISIBLE);
@@ -667,34 +642,32 @@ private String uid;
 
     public void invisibility(int niveau) {
         if (niveau >= 1) {
-            tvQuestionHobbies.setVisibility(View.INVISIBLE);
-            etHobbies1.setVisibility(View.INVISIBLE);
-            etHobbies2.setVisibility(View.INVISIBLE);
-            etHobbies3.setVisibility(View.INVISIBLE);
-            etHobbies4.setVisibility(View.INVISIBLE);
-            etHobbies5.setVisibility(View.INVISIBLE);
-            tvQuestionPerso.setVisibility(View.INVISIBLE);
-            etPerso1.setVisibility(View.INVISIBLE);
-            etPerso2.setVisibility(View.INVISIBLE);
-            etPerso3.setVisibility(View.INVISIBLE);
-            etPerso4.setVisibility(View.INVISIBLE);
-            etPerso5.setVisibility(View.INVISIBLE);
-            tvDescription.setVisibility(View.INVISIBLE);
-            etDescription.setVisibility(View.INVISIBLE);
-            AddBdd.setVisibility(View.INVISIBLE);
+            tvQuestionHobbies.setVisibility(View.GONE);
+            etHobbies1.setVisibility(View.GONE);
+            etHobbies2.setVisibility(View.GONE);
+            etHobbies3.setVisibility(View.GONE);
+            etHobbies4.setVisibility(View.GONE);
+            etHobbies5.setVisibility(View.GONE);
+            tvQuestionPerso.setVisibility(View.GONE);
+            etPerso1.setVisibility(View.GONE);
+            etPerso2.setVisibility(View.GONE);
+            etPerso3.setVisibility(View.GONE);
+            etPerso4.setVisibility(View.GONE);
+            etPerso5.setVisibility(View.GONE);
+            tvDescription.setVisibility(View.GONE);
+            etDescription.setVisibility(View.GONE);
+            AddBdd.setVisibility(View.GONE);
+            uploadPdf.setVisibility(View.GONE);
+
         }
         if (niveau >= 2) {
-            sExp.setVisibility(View.INVISIBLE);
+            sExp.setVisibility(View.GONE);
         }
         if (niveau >= 3) {
-            sJob.setVisibility(View.INVISIBLE);
+            sJob.setVisibility(View.GONE);
         }
         if (niveau >= 4) {
-            sSectorActivity.setVisibility(View.INVISIBLE);
-            etEntreprise.setVisibility(View.GONE);
-            etPoste.setVisibility(View.GONE);
-            etNom.setVisibility(View.INVISIBLE);
-            etPrenom.setVisibility(View.INVISIBLE);
+            linearFormulaire.setVisibility(View.GONE);
         }
 
     }
@@ -739,15 +712,5 @@ private String uid;
 
 
     }
-
-
-
-
-
-
-
-
-
-
 
 }

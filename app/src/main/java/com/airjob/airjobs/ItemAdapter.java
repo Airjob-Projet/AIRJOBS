@@ -1,12 +1,11 @@
 package com.airjob.airjobs;
 
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
-import android.app.ProgressDialog;
+
 import android.content.Context;
 import android.net.Uri;
-import android.nfc.Tag;
-import android.os.Environment;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,31 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airjob.airjobs.ui.manageProfil.ModelProfilCandidat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     List<ModelProfilCandidat> itemList1;
     private Context context;
-    private static final String TAG = "--->";
-
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
-    private FirebaseFirestore db;
-    File localFile;
 
     public ItemAdapter(List<ModelProfilCandidat> itemList, Context context) {
 
@@ -60,23 +42,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         ViewHolder viewHolder=new ViewHolder(view);
         return viewHolder;
 
-
-
-
-
-
-
-
-
-
-
-
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
-//        holder.itemImage.setImageResource(itemList1.get(position).getimageurl());
         RequestOptions options = new RequestOptions()
                 .error(R.drawable.rabbit)
                 .placeholder(R.drawable.cheguevara)
@@ -91,7 +61,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 //                .apply(RequestOptions.circleCropTransform())
                 .into(holder.itemImage);
 
-        Log.i(TAG, "onBindViewHolder: " + itemList1.get(position).getimageurl());
+        if(itemList1.get(position).getChamps().equals("Employeur")){
+
+            holder.itemBioInfo.setText("L'entreprise");
+            holder.itemCentreInteret.setText("Profil recherché");
+            holder.itemPersonnalite.setText("Avantages de l'entreprise");
+            holder.btnTelecharger.setText("Télécharger Fiche poste");
+        }
 
         holder.itemPrenom.setText(itemList1.get(position).getNom()+" "+itemList1.get(position).getPrenom());
         holder.itemJob.setText(itemList1.get(position).getJob());
@@ -111,24 +87,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.itemQualite4.setText(itemList1.get(position).getTraitdep4());
         holder.itemQualite5.setText(itemList1.get(position).getTraitdep5());
 
-        db = FirebaseFirestore.getInstance();
-        storage= FirebaseStorage.getInstance();
-//        storageReference=storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/airjobs-13de9.appspot.com/o/Uploads%2F1638452603459?alt=media&token=8a5cbfa5-d2d9-411e-b5ca-50a2490f285e");
-//        StorageReference  islandRef = storageReference.child("1638452603459.pdf");
-
-//        ProgressDialog pd = new ProgressDialog(context.getApplicationContext());
-//        pd.setTitle("Cv.pdf");
-//        pd.setMessage("Downloading Please Wait!");
-//        pd.setIndeterminate(true);
-//        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        pd.show();
-
-
-
-
-
-
-
 
 
         holder.btnTelecharger.setOnClickListener(new View.OnClickListener() {
@@ -138,19 +96,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
                 String nomFicher = "Cv_"+itemList1.get(position).getNom()+"_"+itemList1.get(position).getPrenom();
 
-
-
-//                System.out.println(itemList1.get(position).getIDprofil());
-
-//                System.out.println(itemList1.get(position).getPdfurl());
                    downloadFile(context, nomFicher,".pdf","downloads", itemList1.get(position).getPdfurl());
 
             }
         });
-
-
-
-
 
     }
 
@@ -163,7 +112,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         ImageView itemImage;
         TextView itemJob;
-        TextView itemDescription;
+        TextView itemDescription,
+                 itemBioInfo,
+                 itemCentreInteret,
+                 itemPersonnalite;
         TextView itemPrenom,
                  itemActivite1,
                  itemActivite2,
@@ -176,8 +128,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         TextView itemQualite4;
         TextView itemQualite5;
         Button btnTelecharger;
-//        LinearLayout linearLayout;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -187,6 +137,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
             itemJob = itemView.findViewById(R.id.tvMetier);
             itemDescription= itemView.findViewById(R.id.tvBio);
+
+            itemBioInfo=itemView.findViewById(R.id.tvBioInfo);
+            itemCentreInteret=itemView.findViewById(R.id.tvCentre);
+            itemPersonnalite=itemView.findViewById(R.id.tvPersonalite);
 
             itemActivite1 = itemView.findViewById(R.id.tvActivite1);
             itemActivite2 = itemView.findViewById(R.id.tvActivite2);
@@ -201,9 +155,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             itemQualite5 = itemView.findViewById(R.id.tvQualite5);
 
             btnTelecharger=itemView.findViewById(R.id.btnTelecharger);
-
-
-//            linearLayout=itemView.findViewById(R.id.layout_id);
 
         }
     }
