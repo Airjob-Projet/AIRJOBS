@@ -9,7 +9,21 @@
         android:id="@+id/navigation_setting"
         android:name="com.airjob.airjobs.ui.settings.SettingsFragment"
         android:label="@string/title_setting"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+        <action android:id="@+id/actionModifProfil"
+            app:destination="@id/navigation_profil" ></action>
+
+
+
+        <action android:id="@+id/actionGeoloc"
+            app:destination="@id/navigation_localisation" ></action>
+
+        <action android:id="@+id/actionFiltre"
+            app:destination="@id/navigation_findit" ></action>
+
+
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_localisation"
@@ -21,7 +35,12 @@
         android:id="@+id/navigation_findit"
         android:name="com.airjob.airjobs.ui.findit.FinditFragment"
         android:label="@string/title_findit"
-        tools:layout="@layout/fragment_findit" />
+        tools:layout="@layout/fragment_findit">
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/navigation_profil" />
+    </fragment>
+
     <fragment
         android:id="@+id/navigation_chat"
         android:name="com.airjob.airjobs.ui.chat.Fragments.UsersFragment"

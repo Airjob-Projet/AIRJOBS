@@ -1,6 +1,7 @@
 package com.airjob.airjobs.ui.chat.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airjob.airjobs.R;
 import com.airjob.airjobs.ui.chat.Model.ChatModel;
-import com.airjob.airjobs.ui.manageProfil.ModelProfilCandidat;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,10 +57,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         if (imageurl.equals("default")){
             holder.profile_image.setImageResource(R.mipmap.ic_launcher);
+            Log.i("================>>>", "onBindViewHolder == dans  if : " + holder.profile_image);
         } else {
             Glide.with(mContext).load(imageurl).into(holder.profile_image);
+            Log.i("================>>>", "onBindViewHolder == dans  else : " + imageurl);
         }
-
         if (position == mChat.size()-1) {
             if (chat.isIsseen()) {
                 holder.txt_seen.setText("seen");
@@ -87,7 +88,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             super(view);
 
             show_message = itemView.findViewById(R.id.show_message);
-            profile_image = itemView.findViewById(R.id.profile_image);
+            profile_image = itemView.findViewById(R.id.profile_image_ChatItemLeft);
             txt_seen = itemView.findViewById(R.id.txt_seen);
         }
     }

@@ -1,33 +1,37 @@
 package com.airjob.airjobs.ui.findit;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airjob.airjobs.ItemAdapter;
+import com.airjob.airjobs.MainActivity;
 import com.airjob.airjobs.databinding.FragmentFinditBinding;
+import com.airjob.airjobs.ui.chat.Adapter.UserAdapter;
+import com.airjob.airjobs.ui.gestionConnexion.Creeuncompte;
 import com.airjob.airjobs.ui.manageProfil.ModelProfilCandidat;
+import com.airjob.airjobs.ui.manageProfil.ProfilFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -39,12 +43,13 @@ public class FinditFragment extends Fragment {
     private FirebaseFirestore db;
     private CollectionReference candidat;
     private CollectionReference noteCollectionRef;
+    private DocumentReference userConnected;
 
-private String id1;
-private String id2;
+
 
 private String profil;
 private String profilmetier;
+private String userMatched;
 
 
 //    private Button btnTelecharger;
@@ -126,11 +131,46 @@ private String profilmetier;
         snapHelper.attachToRecyclerView(recyclerView);
 
         initData();
-//        System.out.println("list : "+ initData());
-
-//        recyclerView.setAdapter(new ItemAdapter(initData(),getContext()));
 
 
+        FloatingActionButton btnMatch = binding.btnMatch;
+
+        btnMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                userConnected = db.collection("Candidat").document(currentUser.getUid());
+
+                userConnected.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+
+                            ModelProfilCandidat contenuUser = documentSnapshot.toObject(ModelProfilCandidat.class);
+                            assert contenuUser != null;
+                            userConnected.update("matchPending", contenuUser.getMatchPending() + userMatched + ";");
+
+//                            db.collection("Candidat").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                                @Override
+//                                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//
+//
+//
+//                                        ModelProfilCandidat user = documentSnapshot.toObject(ModelProfilCandidat.class);
+//                                        Log.i("###----->>>", "user -----> dans le boucle For: " + user.getIDprofil());
+//
+//                                        userMatched = user.getIDprofil();
+//
+//
+//                                }
+//                            });
+
+                        }
+                    }
+                });
+            }
+        });
 
 
 
@@ -144,13 +184,6 @@ private String profilmetier;
         db = FirebaseFirestore.getInstance();
 
 
-
-
-
-
-
-
-
         noteRef = db.document("Candidat/"+uid);
         noteRef.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -158,26 +191,21 @@ private String profilmetier;
                     public void onSuccess(DocumentSnapshot documentSnapshot2) {
                         if(documentSnapshot2.exists()){
 
-
-
-
-                            System.out.println("hello3: ");
                             ModelProfilCandidat contenuNote= documentSnapshot2.toObject(ModelProfilCandidat.class);
 
-                            if(contenuNote.getChamps().equals("Employeur")){
-                                profil="Demandeur d'emploi";
-                                profilmetier=contenuNote.getJob();
-                            }else{
-                                profil="Employeur";
-                                profilmetier=contenuNote.getJob();
+                            if(contenuNote.getChamps()!=null){
+
+                                if(contenuNote.getChamps().equals("Employeur")){
+                                    profil="Demandeur d'emploi";
+                                    profilmetier=contenuNote.getJob();
+                                }else{
+                                    profil="Employeur";
+                                    profilmetier=contenuNote.getJob();
+                                }
                             }
+                            else{
 
-
-
-
-
-
-
+                            }
 
                         }else{
 
@@ -192,43 +220,11 @@ private String profilmetier;
                     }
                 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         candidat= db.collection("Candidat");
-
-        //System.out.println("candid: " + candidat.getId());
-
 
         noteRef = db.document("Candidat/"+uid);
 
         itemList=new ArrayList<ModelProfilCandidat>();
-
-
 
 
         //profil="Candidat";
@@ -242,10 +238,6 @@ private String profilmetier;
 
                         for(QueryDocumentSnapshot documentSnapshot : listeSnapshots){
                             // pour chaque element(snapshot) de la liste
-
-
-
-
 
                             ModelProfilCandidat contenuNote6 = documentSnapshot.toObject(ModelProfilCandidat.class);
 
@@ -280,18 +272,12 @@ private String profilmetier;
                                                                     contenuNote.getEmail2(), contenuNote.getNom(), contenuNote.getPrenom(), contenuNote.getimageurl(), contenuNote.getPdfurl(),
                                                                     contenuNote.getHobbie1(), contenuNote.getHobbie2(), contenuNote.getHobbie3(), contenuNote.getHobbie4(), contenuNote.getHobbie5(),
                                                                     contenuNote.getTraitdep1(), contenuNote.getTraitdep2(), contenuNote.getTraitdep3(), contenuNote.getTraitdep4(), contenuNote.getTraitdep5(),
-                                                                    contenuNote.getExperience(),contenuNote.getIDprofil(), contenuNote.getStatus(), contenuNote.getSearch()));
+                                                                    contenuNote.getExperience(),contenuNote.getIDprofil(), contenuNote.getStatus(), contenuNote.getSearch(),contenuNote.getMatchPending(),contenuNote.getIsMatched()));
 
                                                         }
                                                     }
 
                                                System.out.println("regarde la"+itemList);
-
-
-
-
-
-
 
                                             }else{
 
@@ -306,48 +292,10 @@ private String profilmetier;
                                         }
                                     });
 
-
-
-
-
-
-
-
-
-
                         }
                         //tvSavedNote.setText(notes);
                     }
                 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 

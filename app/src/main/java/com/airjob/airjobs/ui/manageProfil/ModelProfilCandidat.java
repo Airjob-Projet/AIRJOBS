@@ -1,5 +1,7 @@
 package com.airjob.airjobs.ui.manageProfil;
 
+import java.util.List;
+
 public class ModelProfilCandidat {
     private String champs;
     private String secteur;
@@ -24,15 +26,19 @@ public class ModelProfilCandidat {
     private String IDprofil;
     private String status;
     private String search;
+    private String isMatched;
+    private String matchPending;
 
     public ModelProfilCandidat() {
     }
 
 
-    public ModelProfilCandidat(String champs, String secteur, String job, String description, String email2,
-                               String nom, String prenom, String imageurl, String pdfurl,
+    public ModelProfilCandidat(String champs, String secteur, String job, String description,
+                               String email2, String nom, String prenom, String imageurl, String pdfurl,
                                String hobbie1, String hobbie2, String hobbie3, String hobbie4, String hobbie5,
-                               String traitdep1, String traitdep2, String traitdep3, String traitdep4, String traitdep5, String experience, String IDprofil, String status, String search) {
+                               String traitdep1, String traitdep2, String traitdep3, String traitdep4,
+                               String traitdep5, String experience, String IDprofil, String status,
+                               String search, String isMatched, String matchPending) {
         this.champs = champs;
         this.secteur = secteur;
         this.job = job;
@@ -53,9 +59,28 @@ public class ModelProfilCandidat {
         this.traitdep4 = traitdep4;
         this.traitdep5 = traitdep5;
         this.experience = experience;
-        this.IDprofil= IDprofil;
+        this.IDprofil = IDprofil;
         this.status = status;
         this.search = search;
+        this.isMatched = isMatched;
+        this.matchPending = matchPending;
+    }
+
+
+    public String getIsMatched() {
+        return isMatched;
+    }
+
+    public void setIsMatched(String isMatched) {
+        this.isMatched = isMatched;
+    }
+
+    public String getMatchPending() {
+        return matchPending;
+    }
+
+    public void setMatchPending(String matchPending) {
+        this.matchPending = matchPending;
     }
 
     public String getStatus() {

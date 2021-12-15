@@ -113,8 +113,8 @@ public class UsersFragment extends Fragment {
 
                             assert user != null;
                             assert firebaseUser != null;
-                            //if (!user.getIDprofil().equals(firebaseUser.getUid())){
-                            if (!user.getIDprofil().contentEquals(firebaseUser.getUid())){ //###a la base etais comme ça
+                            if (!user.getIDprofil().equals(firebaseUser.getUid())){
+//                            if (!user.getIDprofil().contentEquals(firebaseUser.getUid())){ //###a la base etais comme ça
                                 mUsers.add(user);
                             }
                         }
@@ -135,14 +135,15 @@ public class UsersFragment extends Fragment {
 
                         for (QueryDocumentSnapshot documentSnapshot : value) {
                             ModelProfilCandidat user = documentSnapshot.toObject(ModelProfilCandidat.class);
+                            Log.i("###----->>>", "user -----> dans le boucle For: " + user);
 
                             assert user != null;
                             assert firebaseUser != null;
                             if (!user.getIDprofil().equals(firebaseUser.getUid())) {
                             //if (!user.getIDprofil().contentEquals(firebaseUser.getUid())){ //###a la base etais comme ça
 
-                                //                                Log.i("###----->>>", "autre profils -----> user.getIDprofil: "
-//                                        + user.getIDprofil());
+                                Log.i("###----->>>", "autre profils -----> user.getIDprofil: " + user.getIDprofil());
+
                                 mUsers.add(user);
                             } //else {// ce else est a supprimer
 //                                Log.i("###----->>>", "mon profil --------> user.currentUser: "

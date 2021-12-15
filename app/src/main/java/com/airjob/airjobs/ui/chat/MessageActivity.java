@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
@@ -31,7 +30,6 @@ import com.airjob.airjobs.MainActivity;
 import com.airjob.airjobs.R;
 import com.airjob.airjobs.ui.chat.Adapter.MessageAdapter;
 import com.airjob.airjobs.ui.chat.Model.ChatModel;
-import com.airjob.airjobs.ui.chat.Model.ChatlistModel;
 //import com.airjob.airjobs.ui.chat.Model.UserModel;
 import com.airjob.airjobs.ui.manageProfil.ModelProfilCandidat;
 import com.bumptech.glide.Glide;
@@ -98,7 +96,7 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        profile_image = findViewById(R.id.profile_image);
+        profile_image = findViewById(R.id.profile_image_ChatItemLeft);
         username = findViewById(R.id.username);
         btn_send = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.text_send);

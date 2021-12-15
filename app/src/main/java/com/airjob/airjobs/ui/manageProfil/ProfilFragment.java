@@ -29,13 +29,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.Fragment;
 
 import com.airjob.airjobs.HomePage;
 import com.airjob.airjobs.MainActivity;
 import com.airjob.airjobs.R;
 import com.airjob.airjobs.databinding.FragmentProfilBinding;
+import com.airjob.airjobs.ui.gestionConnexion.Modelcreeruncompte;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -50,9 +50,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -110,6 +112,7 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
     FirebaseDatabase database;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private TextView usernameProfil;
     /**
      * 1.3 Variables globales pour les URI
      **/
@@ -152,15 +155,50 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
         binding = FragmentProfilBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
+        TextView name=binding.usernameProfil;
+
 
         ImageView imageInit= binding.ivAvatar;
-        Glide.with(getContext())
-                .load(R.drawable.add_photo)
-                .circleCrop()
-                .override(100,100)
+
+
+        noteRef = db.document("Candidat/" + uid);
+
+        noteRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                name.setText(documentSnapshot.get("nom") + " " + documentSnapshot.get("prenom"));
+
+                if (documentSnapshot.get("imageurl") == null || documentSnapshot.get("imageurl").equals("") ) {
+
+
+                    Glide.with(getContext())
+                            .load(R.drawable.add_photo)
+                            .circleCrop()
+                            .override(100,100)
 
 //                .apply(RequestOptions.circleCropTransform())
-                .into(imageInit);
+                            .into(ivAvatar);
+
+                }else{
+                    Glide.with(getContext())
+                            .load(documentSnapshot.get("imageurl"))
+                            .fitCenter()
+                            .circleCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(ivAvatar);
+
+                }
+            }
+        });
+
+
+
+//        name.setText((CharSequence) noteRef.get(Source.valueOf("nom")));
+
+
+
+
 
 
         db.collection("Type de profils")
@@ -200,6 +238,9 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 String traitdp4 = etPerso4.getText().toString();
                 String traitdp5 = etPerso5.getText().toString();
                 String description = etDescription.getText().toString();
+                String listMatch= "";
+                String listMatchPending= "";
+
 
                 System.out.println("juriPdf : " +juripdf);
 
@@ -216,7 +257,7 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                         user.getEmail(),
                         variableGlobalNom, variableGlobalPrenom, juri.toString(), juripdf.toString(),
                         hobbie1, hobbie2, hobbie3, hobbie4, hobbie5, traitdp1, traitdp2, traitdp3, traitdp4, traitdp5,
-                        variableGlobalExp, uid,"offline", variableGlobalNom.toLowerCase());
+                        variableGlobalExp, uid,"offline", variableGlobalNom.toLowerCase(),listMatch,listMatchPending);
 
 
                 noteRef = db.document("Candidat/" + uid);
@@ -481,7 +522,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 } else {
                     variableGlobalChamps = profilList.get(i);
                     spinnerSecteur(view, profilList.get(i));
-                    linearFormulaire.setVisibility(View.VISIBLE);
                     if (variableGlobalChamps.equals("Employeur")) {
                         etEntreprise.setVisibility(View.VISIBLE);
                         etPoste.setVisibility(View.VISIBLE);
@@ -490,6 +530,9 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                     } else {
                         etEntreprise.setVisibility(View.GONE);
                         etPoste.setVisibility(View.GONE);
+                        etPrenom.setVisibility(View.VISIBLE);
+                        etNom.setVisibility(View.VISIBLE);
+                        sSectorActivity.setVisibility(View.VISIBLE);
                         uploadPdf.setText(R.string.pdfDeposeCandidat);
                     }
 
@@ -521,7 +564,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                     variableGlobalExp = sMyExp[i];
                     tvDescription.setVisibility(View.VISIBLE);
                     etDescription.setVisibility(View.VISIBLE);
-                    AddBdd.setVisibility(View.VISIBLE);
                     uploadPdf.setVisibility(View.VISIBLE);
                     tvQuestionHobbies.setVisibility(View.VISIBLE);
                     etHobbies1.setVisibility(View.VISIBLE);
@@ -658,7 +700,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
             etPerso5.setVisibility(View.GONE);
             tvDescription.setVisibility(View.GONE);
             etDescription.setVisibility(View.GONE);
-            AddBdd.setVisibility(View.GONE);
             uploadPdf.setVisibility(View.GONE);
 
         }
@@ -669,7 +710,11 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
             sJob.setVisibility(View.GONE);
         }
         if (niveau >= 4) {
-            linearFormulaire.setVisibility(View.GONE);
+            etNom.setVisibility(View.GONE);
+            etPrenom.setVisibility(View.GONE);
+            etEntreprise.setVisibility(View.GONE);
+            etPoste.setVisibility(View.GONE);
+            sSectorActivity.setVisibility(View.GONE);
         }
 
     }

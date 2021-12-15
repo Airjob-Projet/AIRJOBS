@@ -4,8 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AIRJOBS-main/app/src/main/res/drawable-anydpi/ic_chat.xml" value="0.1" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/activity_bar_nav.xml" value="0.45364583333333336" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/activity_creeuncompte.xml" value="0.45364583333333336" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/activity_main.xml" value="0.45364583333333336" />
         <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/activity_message.xml" value="0.1265625" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/fragment_findit.xml" value="0.45364583333333336" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/fragment_localisation.xml" value="0.13020833333333334" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/fragment_profil.xml" value="0.3574066475174395" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/fragment_settings.xml" value="0.5541666666666667" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/fragment_users.xml" value="0.2796875" />
         <entry key="..\:/AIRJOBS-main/app/src/main/res/layout/user_item.xml" value="0.1" />
+        <entry key="..\:/AIRJOBS-main/app/src/main/res/menu/bottom_nav_menu.xml" value="0.45364583333333336" />
         <entry key="..\:/AIRJOBS-main/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2037037037037037" />
         <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-hdpi/cadre.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Abdelah/AndroidStudioProjects/AIRJOBS-main/app/src/main/res/drawable-hdpi/cadre_light.xml" value="0.22135416666666666" />

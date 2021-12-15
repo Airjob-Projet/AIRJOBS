@@ -1,41 +1,35 @@
 package com.airjob.airjobs.ui.gestionConnexion;
 
+import android.widget.EditText;
+
 public class Modelcreeruncompte {
 
-    private String identifiant;
-    private String email;
-    private String motdepasse;
+    private String nom;
+    private String prenom;
 
-    public Modelcreeruncompte(String identifiant, String email, String motdepasse) {
-        this.identifiant = identifiant;
-        this.email = email;
-        this.motdepasse = motdepasse;
+
+    public Modelcreeruncompte(String nom, String prenom) {
+        this.nom = nom;
+        this.prenom=prenom;
     }
 
     public Modelcreeruncompte() {
     }
 
-    public String getIdentifiant() {
-        return identifiant;
+    public String getNom() {
+        return nom;
     }
 
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
-    public String getMotdepasse() {
-        return motdepasse;
-    }
-
-    public void setMotdepasse(String motdepasse) {
-        this.motdepasse = motdepasse;
-    }
 }

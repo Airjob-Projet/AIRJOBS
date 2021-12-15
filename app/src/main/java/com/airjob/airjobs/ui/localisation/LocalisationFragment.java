@@ -94,6 +94,7 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
 
 
 
+
         localisationViewModel =
                 new ViewModelProvider(this).get(LocalisationViewModel.class);
 
@@ -338,21 +339,29 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
                                                 if(contenuNote.getJob()!=null) {
                                                     if (contenuNote.getJob().equals(profilmetier) && contenuNote.getChamps().equals(profil)) {
 
-                                                        System.out.println("job :" + contenuNote.getJob());
-                                                        GeoPoint geoPoint = documentSnapshot2.getGeoPoint("geoprofil");
+//                                                        System.out.println("job :" + contenuNote.getJob());
+                                                        if(documentSnapshot2.getGeoPoint("geoprofil") != null) {
+                                                            GeoPoint geoPoint = documentSnapshot2.getGeoPoint("geoprofil");
 
-                                                        // getting latitude and longitude from geo point
-                                                        // and setting it to our location.
-                                                        LatLng location = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
+                                                            // getting latitude and longitude from geo point
+                                                            // and setting it to our location.
+                                                            LatLng location = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
 
-                                                        // adding marker to each location on google maps
-                                                        mMap.addMarker(new MarkerOptions().position(location).title(contenuNote.getNom()));
+                                                            // adding marker to each location on google maps
+                                                            mMap.addMarker(new MarkerOptions().position(location).title(contenuNote.getNom()));
 
-                                                        // below line is use to move camera.
-                                                        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+                                                            // below line is use to move camera.
+                                                            mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+                                                        } else {
+//                                                            LatLng location = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
+//
+//                                                            // adding marker to each location on google maps
+//                                                            mMap.addMarker(new MarkerOptions().position(location).title(contenuNote.getNom()));
+//
+//                                                            // below line is use to move camera.
+//                                                            mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
 
-
-
+                                                        }
 
 
 //                                                        itemList.add(new ModelProfilCandidat(contenuNote.getChamps(), contenuNote.getSecteur(), contenuNote.getJob(), contenuNote.getDescription(),
@@ -365,12 +374,6 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
                                                 }
 
                                                 System.out.println("regarde la"+itemList);
-
-
-
-
-
-
 
                                             }else{
 
@@ -385,56 +388,12 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
                                         }
                                     });
 
-
-
-
-
-
-
-
-
-
                         }
                         //tvSavedNote.setText(notes);
                     }
                 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
 }
 
