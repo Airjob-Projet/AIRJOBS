@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airjob.airjobs.R;
 import com.airjob.airjobs.ui.chat.Model.ChatModel;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -57,10 +58,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         if (imageurl.equals("default")){
             holder.profile_image.setImageResource(R.mipmap.ic_launcher);
-            Log.i("================>>>", "onBindViewHolder == dans  if : " + holder.profile_image);
+            Log.i("**==============>>>", "onBindViewHolder == dans  if : " + holder.profile_image);
         } else {
             Glide.with(mContext).load(imageurl).into(holder.profile_image);
-            Log.i("================>>>", "onBindViewHolder == dans  else : " + imageurl);
+
+            Log.i("**==============>>>", "mContext onBindViewHolder == dans  else : " + mContext);
+            Log.i("**==============>>>", "imageurl onBindViewHolder == dans  else : " + imageurl);
         }
         if (position == mChat.size()-1) {
             if (chat.isIsseen()) {
@@ -71,7 +74,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         } else {
             holder.txt_seen.setVisibility(View.GONE);
         }
-
     }
 
     @Override

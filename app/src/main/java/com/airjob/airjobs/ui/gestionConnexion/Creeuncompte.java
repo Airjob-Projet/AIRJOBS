@@ -104,9 +104,6 @@ public class Creeuncompte extends AppCompatActivity {
                 // progressBar.setVisibility(View.VISIBLE);
 
 
-
-
-
                 final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.createUserWithEmailAndPassword(Email1, motdepasse1)
                         // Ajout la méthode addOnCompleteListener pour vérifier la bonne transmition des
@@ -142,9 +139,6 @@ public class Creeuncompte extends AppCompatActivity {
         }
     }
 //
-
-
-
 
     /** 12 Ajout des boutons next et send à la place du retour chariot du keyboard **/
     private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {

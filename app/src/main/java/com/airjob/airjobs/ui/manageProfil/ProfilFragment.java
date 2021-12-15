@@ -71,7 +71,6 @@ import java.util.Locale;
 
 public class ProfilFragment extends Fragment implements android.widget.AdapterView.OnItemSelectedListener {
 
-
     private Uri imageUri;
     private String uid;
 
@@ -100,7 +99,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
             "5 ans+ : Senior"
     };
 
-
     // Variables Firebase
     private FirebaseFirestore db;
     private CollectionReference profilsRef;
@@ -123,11 +121,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 
     private String pdforimage;
 
-
-
-
-
-
     // Variables des listes
     List<String> profilList = new ArrayList<>();
     List<String> secteurList = new ArrayList<>();
@@ -144,13 +137,7 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
-
-
-
 //        loadImage(ivAvatar,R.drawable.add_photo);
-
-
-
 
         binding = FragmentProfilBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
@@ -171,13 +158,10 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 
                 if (documentSnapshot.get("imageurl") == null || documentSnapshot.get("imageurl").equals("") ) {
 
-
                     Glide.with(getContext())
                             .load(R.drawable.add_photo)
                             .circleCrop()
                             .override(100,100)
-
-//                .apply(RequestOptions.circleCropTransform())
                             .into(ivAvatar);
 
                 }else{
@@ -187,19 +171,11 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                             .circleCrop()
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(ivAvatar);
-
                 }
             }
         });
 
-
-
 //        name.setText((CharSequence) noteRef.get(Source.valueOf("nom")));
-
-
-
-
-
 
         db.collection("Type de profils")
                 .whereEqualTo("Employeur", true)
@@ -217,8 +193,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                         }
                     }
                 });
-
-
 
         Button layout = binding.AddBdd;
         layout.setOnClickListener(new View.OnClickListener() {
@@ -241,7 +215,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 String listMatch= "";
                 String listMatchPending= "";
 
-
                 System.out.println("juriPdf : " +juripdf);
 
                 if(juripdf == null || juripdf.toString().equals("")){
@@ -251,14 +224,11 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                     juri= URI.create("");
                 }
 
-
-
                 ModelProfilCandidat contenuNote = new ModelProfilCandidat(variableGlobalChamps, variableGlobalSecteur, variableGlobalJob, description,
                         user.getEmail(),
                         variableGlobalNom, variableGlobalPrenom, juri.toString(), juripdf.toString(),
                         hobbie1, hobbie2, hobbie3, hobbie4, hobbie5, traitdp1, traitdp2, traitdp3, traitdp4, traitdp5,
                         variableGlobalExp, uid,"offline", variableGlobalNom.toLowerCase(),listMatch,listMatchPending);
-
 
                 noteRef = db.document("Candidat/" + uid);
 
@@ -266,11 +236,8 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 
                 Toast.makeText(getContext(),"Profil enregistrer",Toast.LENGTH_LONG).show();
 
-
             }
-
         });
-
 
         imageInit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,14 +252,8 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 } else {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 102);
                 }
-
-
             }
-
-
         });
-
-
 
         Button layout3 = binding.uploadPdf;
         layout3.setOnClickListener(new View.OnClickListener() {
@@ -309,11 +270,7 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 else {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
                 }
-
-
             }
-
-
         });
 
         ivAvatar = binding.ivAvatar;
@@ -323,7 +280,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
         return v;
 
     }
-
 
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -336,7 +292,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
             }
         }
     }
-
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -404,10 +359,8 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                     });
 
                     fileRef.putFile(localFileUri);
-
                 }
             }
-
         }
         else if (pdforimage=="pdf"){
 
@@ -422,20 +375,14 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 }
                 else {
                     Toast.makeText(getActivity(), "select a file", Toast.LENGTH_LONG).show();
-
                 }
 
-
                 // notification.setText("A file is selected : "+ data.getData().getLastPathSegment());
-
 
             }else{
                 Toast.makeText(getActivity(), "please select file", Toast.LENGTH_SHORT).show();
             }
-
-
         }
-
     }
 
     private void uploadFile(Uri pdfUri) {
@@ -462,12 +409,10 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
-
             }
         });
 
         fileRef.putFile(pdfUri);
-
     }
 
     @Override
@@ -501,7 +446,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
         etPerso5 = root.findViewById(R.id.etPerso5);
         uploadPdf = root.findViewById(R.id.uploadPdf);
         linearFormulaire=root.findViewById(R.id.linearFormulaire);
-
     }
 
     private void spinnerChoix(View root) {
@@ -535,7 +479,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                         sSectorActivity.setVisibility(View.VISIBLE);
                         uploadPdf.setText(R.string.pdfDeposeCandidat);
                     }
-
                 }
                 break;
             case R.id.sSectorActivity:
@@ -610,7 +553,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
                 break;
         }
     }
-
 
     public void spinnerProfil(View v) {
         profilsRef = db.collection("Type de profils");
@@ -719,16 +661,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 
     }
 
-
-
-
-
-
-
-
-
-
-
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
 //
@@ -742,10 +674,6 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
 //
 //    }
 
-
-
-
-
     private void selectPdf(){
 
         Intent intent=new Intent();
@@ -753,11 +681,7 @@ public class ProfilFragment extends Fragment implements android.widget.AdapterVi
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 86);
 
-
         //pdfUri=intent.getData();
 
-
-
     }
-
 }

@@ -54,8 +54,6 @@ import java.util.List;
 public class LocalisationFragment extends Fragment implements OnMapReadyCallback {
 
 
-
-
     private DocumentReference noteRef;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -93,8 +91,6 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
         db = FirebaseFirestore.getInstance();
 
 
-
-
         localisationViewModel =
                 new ViewModelProvider(this).get(LocalisationViewModel.class);
 
@@ -129,9 +125,6 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
     }
 
 
-
-
-
     // TODO Ajouter le code pour afficher les markers en fonction des jobs recherchés ====>
 
     @Override
@@ -154,17 +147,6 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
         mMap = googleMap;
 
         initData();
-
-
-
-
-
-
-
-
-
-
-
 
 
         // creating a variable for document reference.
@@ -194,26 +176,11 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
             }
         });
 
-
-
-
-
-
     }
-
-
 
     private void initData() {
 
         db = FirebaseFirestore.getInstance();
-
-
-
-
-
-
-
-
 
         noteRef = db.document("Candidat/"+uid);
         noteRef.get()
@@ -221,9 +188,6 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot2) {
                         if(documentSnapshot2.exists()){
-
-
-
 
                             System.out.println("hello3: ");
                             ModelProfilCandidat contenuNote= documentSnapshot2.toObject(ModelProfilCandidat.class);
@@ -235,13 +199,6 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
                                 profil="Employeur";
                                 profilmetier=contenuNote.getJob();
                             }
-
-
-
-
-
-
-
 
                         }else{
 
@@ -257,32 +214,6 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
                 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         candidat= db.collection("Candidat");
 
         //System.out.println("candid: " + candidat.getId());
@@ -291,9 +222,6 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
         noteRef = db.document("Candidat/"+uid);
 
         itemList=new ArrayList<ModelProfilCandidat>();
-
-
-
 
         //profil="Candidat";
 
@@ -307,17 +235,10 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
                         for(QueryDocumentSnapshot documentSnapshot : listeSnapshots){
                             // pour chaque element(snapshot) de la liste
 
-
-
-
-
                             ModelProfilCandidat contenuNote6 = documentSnapshot.toObject(ModelProfilCandidat.class);
-
 
                             System.out.println("id7: " + documentSnapshot.getId()+ " profil: "+profil+" profilmetier: "+ profilmetier);
 //                            System.out.println("contenu de la note candidat :" + contenuNote.getJob());
-
-
 
                             System.out.println("profil check: "+profil);
 //                            profil="Candidat";
@@ -329,12 +250,8 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
                                         public void onSuccess(DocumentSnapshot documentSnapshot2) {
                                             if(documentSnapshot2.exists()){
 
-
                                                 System.out.println("hello3: ");
                                                 ModelProfilCandidat contenuNote= documentSnapshot2.toObject(ModelProfilCandidat.class);
-
-
-
 
                                                 if(contenuNote.getJob()!=null) {
                                                     if (contenuNote.getJob().equals(profilmetier) && contenuNote.getChamps().equals(profil)) {
@@ -363,7 +280,6 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
 
                                                         }
 
-
 //                                                        itemList.add(new ModelProfilCandidat(contenuNote.getChamps(), contenuNote.getSecteur(), contenuNote.getJob(), contenuNote.getDescription(),
 //                                                                contenuNote.getEmail2(), contenuNote.getNom(), contenuNote.getPrenom(), contenuNote.getimageurl(), contenuNote.getPdfurl(),
 //                                                                contenuNote.getHobbie1(), contenuNote.getHobbie2(), contenuNote.getHobbie3(), contenuNote.getHobbie4(), contenuNote.getHobbie5(),
@@ -387,12 +303,10 @@ public class LocalisationFragment extends Fragment implements OnMapReadyCallback
 
                                         }
                                     });
-
                         }
                         //tvSavedNote.setText(notes);
                     }
                 });
-
     }
 
 }

@@ -30,7 +30,6 @@ public class Recuperationmotdepasse extends AppCompatActivity {
         buttonrecup = findViewById(R.id.buttonrecup);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

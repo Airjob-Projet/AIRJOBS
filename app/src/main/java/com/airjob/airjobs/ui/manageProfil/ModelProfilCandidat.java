@@ -32,7 +32,6 @@ public class ModelProfilCandidat {
     public ModelProfilCandidat() {
     }
 
-
     public ModelProfilCandidat(String champs, String secteur, String job, String description,
                                String email2, String nom, String prenom, String imageurl, String pdfurl,
                                String hobbie1, String hobbie2, String hobbie3, String hobbie4, String hobbie5,
@@ -65,7 +64,6 @@ public class ModelProfilCandidat {
         this.isMatched = isMatched;
         this.matchPending = matchPending;
     }
-
 
     public String getIsMatched() {
         return isMatched;
@@ -162,8 +160,6 @@ public class ModelProfilCandidat {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
-
 
     public String getPdfurl() {
         return pdfurl;
