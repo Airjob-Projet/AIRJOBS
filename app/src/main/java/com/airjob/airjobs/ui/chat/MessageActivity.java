@@ -187,8 +187,8 @@ public class MessageActivity extends AppCompatActivity {
                         } else {
                             Glide.with(getApplicationContext()).load(user.getimageurl()).into(profile_image);
                         }
+                        readMessages(currentUser.getUid(), idParticipantChat, user.getimageurl());
                     }
-                    readMessages(currentUser.getUid(), idParticipantChat, user.getimageurl());
                 }
             }
         });
